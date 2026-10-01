@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="StormMC Official - Premium Minecraft Server. Play now at play.stormmc.top">
+    <title>StormMC Official | Premium Minecraft Server</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --md-primary: #0061a4;
+            --md-on-primary: #ffffff;
+            --md-primary-container: #d0e4ff;
+            --md-on-primary-container: #001d36;
+            --md-secondary: #536372;
+            --md-secondary-container: #d7e3f2;
+            --md-on-secondary-container: #101f2c;
+            --md-tertiary: #6b5778;
+            --md-tertiary-container: #f2daff;
+            --md-on-tertiary-container: #251430;
+            --md-surface: #faf8ff;
+            --md-on-surface: #1a1c1e;
+            --md-on-surface-variant: #42474e;
+            --md-surface-container-lowest: #ffffff;
+            --md-surface-container-low: #f4f0fa;
+            --md-surface-container: #eeeaf4;
+            --md-surface-container-high: #e8e4ee;
+            --md-outline: #73777f;
+            --md-outline-variant: #c2c7cf;
+            --md-error: #b3261e;
+            --vip-green: #1b873e;
+            --vipplus-blue: #0063c6;
+            --vipmax-purple: #77538e;
+            --discord: #5865F2;
+            --youtube: #FF0000;
+            --md-elevation-1: 0 1px 2px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08);
+            --md-elevation-2: 0 2px 4px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08);
+            --md-elevation-3: 0 4px 8px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.1);
+            --md-elevation-4: 0 8px 16px rgba(0,0,0,0.15), 0 16px 32px rgba(0,0,0,0.12);
+            --md-shape-sm: 8px;
+            --md-shape-md: 12px;
+            --md-shape-lg: 16px;
+            --md-shape-xl: 28px;
+            --md-shape-full: 9999px;
+            --md-motion: cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--md-surface);
+            color: var(--md-on-surface);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== BACKGROUND ===== */
+        .bg-effects {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; overflow: hidden;
+        }
+        .bg-effects::before {
+            content: '';
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(0,97,164,0.07) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(107,87,120,0.05) 0%, transparent 50%);
+            animation: bgFloat 25s ease-in-out infinite;
+        }
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0,0); }
+            50% { transform: translate(-2%,-2%); }
+        }
+
+        /* ===== REVEAL ON SCROLL ===== */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.6s var(--md-motion), transform 0.6s var(--md-motion);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 0 1rem;
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--md-outline-variant);
+            height: 64px;
+            transition: box-shadow 0.3s var(--md-motion);
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; height: 100%;
+        }
+        .nav-logo {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 1.25rem; font-weight: 700;
+            color: var(--md-on-surface); text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-logo:hover { color: var(--md-primary); }
+        .nav-logo-icon { font-size: 1.5rem; }
+        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-links {
+            display: flex; list-style: none; gap: 0.25rem; align-items: center;
+        }
+        .nav-links a {
+            color: var(--md-on-surface-variant); text-decoration: none;
+            font-weight: 500; font-size: 0.875rem;
+            padding: 0.5rem 0.875rem; border-radius: var(--md-shape-full);
+            transition: background 0.2s, color 0.2s;
+        }
+        .nav-links a:hover { background: rgba(0,97,164,0.08); color: var(--md-primary); }
+        .nav-store-btn {
+            background: var(--md-primary) !important;
+            color: var(--md-on-primary) !important;
+            padding: 0.5rem 1.125rem !important;
+        }
+        .nav-store-btn:hover { background: #004e8a !important; box-shadow: var(--md-elevation-2); }
+
+        /* Social icon buttons */
+        .social-btn {
+            width: 36px; height: 36px; border-radius: var(--md-shape-full);
+            display: inline-flex; align-items: center; justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+        .social-btn svg { width: 18px; height: 18px; fill: white; }
+        .social-btn.discord { background: var(--discord); }
+        .social-btn.youtube { background: var(--youtube); }
+        .social-btn:hover { transform: scale(1.1); box-shadow: var(--md-elevation-2); }
+
+        .hamburger {
+            display: none; flex-direction: column; cursor: pointer; gap: 5px;
+            padding: 0.5rem; border-radius: var(--md-shape-sm);
+        }
+        .hamburger span {
+            width: 24px; height: 2px; background: var(--md-on-surface-variant);
+            border-radius: 1px; transition: 0.3s var(--md-motion);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 6rem 1.5rem 3rem;
+        }
+        .hero-content { max-width: 800px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--md-primary-container); color: var(--md-on-primary-container);
+            padding: 0.5rem 1rem; border-radius: var(--md-shape-full);
+            font-size: 0.875rem; font-weight: 500; margin-bottom: 1.5rem;
+            box-shadow: var(--md-elevation-1);
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.25rem); font-weight: 700;
+            line-height: 1.1; margin-bottom: 1rem; letter-spacing: -0.5px;
+        }
+        .hero-description {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--md-on-surface-variant); margin-bottom: 2rem; line-height: 1.7;
+        }
+
+        .hero-ip-row {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--md-surface-container-low);
+            border: 1px solid var(--md-outline-variant);
+            padding: 0.75rem 0.75rem 0.75rem 1.25rem;
+            border-radius: var(--md-shape-lg); margin-bottom: 2rem;
+            font-family: 'Roboto Mono', monospace; font-size: 0.95rem;
+            flex-wrap: wrap; justify-content: center;
+        }
+        .hero-ip-label { color: var(--md-on-surface-variant); }
+        .hero-ip-value { color: var(--md-primary); font-weight: 600; }
+        .copy-ip-btn {
+            background: var(--md-primary); color: var(--md-on-primary);
+            border: none; padding: 0.4rem 0.875rem; border-radius: var(--md-shape-sm);
+            cursor: pointer; font-family: 'Roboto', sans-serif;
+            font-size: 0.8rem; font-weight: 500;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .copy-ip-btn:hover { background: #004e8a; }
+        .copy-ip-btn:active { transform: scale(0.96); }
+
+        .hero-cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .hero-cta {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.875rem 2rem; border-radius: var(--md-shape-full);
+            font-size: 0.95rem; font-weight: 500; text-decoration: none;
+            transition: box-shadow 0.3s, transform 0.2s, background 0.3s;
+            box-shadow: var(--md-elevation-2);
+        }
+        .hero-cta:hover { transform: translateY(-2px); box-shadow: var(--md-elevation-3); }
+        .hero-cta.primary { background: var(--md-primary); color: var(--md-on-primary); }
+        .hero-cta.primary:hover { background: #004e8a; }
+        .hero-cta.discord { background: var(--discord); color: white; }
+        .hero-cta.discord:hover { background: #4752c4; }
+        .hero-cta.youtube { background: var(--youtube); color: white; }
+        .hero-cta.youtube:hover { background: #cc0000; }
+        .hero-cta svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* Hero stats */
+        .hero-stats {
+            display: flex; justify-content: center; gap: 2.5rem;
+            margin-top: 3rem; flex-wrap: wrap;
+        }
+        .stat-item { text-align: center; }
+        .stat-value {
+            font-size: 1.75rem; font-weight: 700; color: var(--md-primary);
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-size: 0.8rem; color: var(--md-on-surface-variant);
+            text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section { padding: 4rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 700;
+            margin-bottom: 0.75rem; letter-spacing: -0.25px;
+        }
+        .section-subtitle {
+            font-size: 1rem; color: var(--md-on-surface-variant);
+            max-width: 600px; margin: 0 auto;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+        }
+        .about-card {
+            background: var(--md-surface-container-low);
+            border: 1px solid var(--md-outline-variant);
+            border-radius: var(--md-shape-xl); padding: 2rem;
+            transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+        }
+        .about-card:hover {
+            box-shadow: var(--md-elevation-2); border-color: var(--md-outline);
+            transform: translateY(-3px);
+        }
+        .about-card.featured {
+            grid-column: 1 / -1;
+            background: var(--md-primary-container);
+            border-color: transparent;
+        }
+        .about-card.featured:hover { border-color: var(--md-primary); }
+        .about-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .about-card h3 {
+            font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;
+        }
+        .about-card p {
+            color: var(--md-on-surface-variant); line-height: 1.7; font-size: 0.95rem;
+        }
+        .about-card ul {
+            margin-top: 1rem; padding-left: 1.25rem;
+            color: var(--md-on-surface-variant); font-size: 0.95rem; line-height: 2;
+        }
+
+        /* ===== TEAM ===== */
+        .team-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+        }
+        .team-card {
+            background: var(--md-surface-container-low);
+            border: 1px solid var(--md-outline-variant);
+            border-radius: var(--md-shape-xl); padding: 2rem;
+            text-align: center;
+            transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+        }
+        .team-card:hover {
+            box-shadow: var(--md-elevation-3); transform: translateY(-4px);
+        }
+        .team-card.owner { border-color: var(--vipmax-purple); }
+        .team-card.owner:hover { border-color: var(--vipmax-purple); }
+        .team-avatar {
+            width: 80px; height: 80px; border-radius: var(--md-shape-full);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.25rem; margin: 0 auto 1rem;
+            background: var(--md-surface-container);
+        }
+        .team-card.owner .team-avatar { background: var(--md-tertiary-container); }
+        .team-card.dev .team-avatar { background: var(--md-primary-container); }
+        .team-name { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .team-role {
+            font-size: 0.8rem; font-weight: 500; text-transform: uppercase;
+            letter-spacing: 0.5px; margin-bottom: 0.75rem;
+        }
+        .team-card.owner .team-role { color: var(--vipmax-purple); }
+        .team-card.dev .team-role { color: var(--md-primary); }
+        .team-desc {
+            font-size: 0.875rem; color: var(--md-on-surface-variant); line-height: 1.6;
+        }
+
+        /* ===== RANK CARDS ===== */
+        .ranks-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem; align-items: stretch;
+        }
+        .rank-card {
+            position: relative;
+            background: var(--md-surface-container-low);
+            border: 1px solid var(--md-outline-variant);
+            border-radius: var(--md-shape-xl); padding: 1.75rem;
+            transition: transform 0.3s var(--md-motion), box-shadow 0.3s, border-color 0.3s;
+            overflow: hidden; display: flex; flex-direction: column;
+        }
+        .rank-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            border-radius: var(--md-shape-xl) var(--md-shape-xl) 0 0;
+            transition: height 0.3s var(--md-motion);
+        }
+        .rank-card.vip::before { background: var(--vip-green); }
+        .rank-card.vipplus::before { background: var(--vipplus-blue); }
+        .rank-card.vipmax::before { background: var(--vipmax-purple); }
+        .rank-card:hover { transform: translateY(-6px); box-shadow: var(--md-elevation-4); }
+        .rank-card.vip:hover { border-color: var(--vip-green); }
+        .rank-card.vipplus:hover { border-color: var(--vipplus-blue); }
+        .rank-card.vipmax:hover { border-color: var(--vipmax-purple); }
+        .rank-card.vipmax { background: linear-gradient(180deg, rgba(107,87,120,0.06) 0%, var(--md-surface-container-low) 40%); }
+
+        .rank-badge {
+            position: absolute; top: 1.25rem; right: 1.25rem;
+            padding: 0.3rem 0.75rem; border-radius: var(--md-shape-full);
+            font-size: 0.6875rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .rank-badge.popular { background: var(--vipplus-blue); color: white; }
+        .rank-badge.best-value { background: var(--vipmax-purple); color: white; }
+
+        .rank-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+        .rank-name { font-size: 1.375rem; font-weight: 700; margin-bottom: 0.375rem; }
+        .rank-card.vip .rank-name { color: var(--vip-green); }
+        .rank-card.vipplus .rank-name { color: var(--vipplus-blue); }
+        .rank-card.vipmax .rank-name { color: var(--vipmax-purple); }
+        .rank-price { font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.5px; }
+        .rank-price .currency { font-size: 1.25rem; font-weight: 500; color: var(--md-on-surface-variant); margin-right: 0.25rem; }
+
+        .perks-list { list-style: none; margin-bottom: 1.5rem; flex-grow: 1; }
+        .perks-list li {
+            display: flex; align-items: flex-start; gap: 0.75rem;
+            padding: 0.45rem 0; color: var(--md-on-surface-variant);
+            font-size: 0.9rem; line-height: 1.5;
+        }
+        .perk-icon { flex-shrink: 0; width: 1.5rem; text-align: center; font-size: 1rem; }
+
+        .rank-note {
+            font-size: 0.8125rem; color: var(--md-on-surface-variant);
+            text-align: center; margin-bottom: 1rem; font-style: italic;
+        }
+        .buy-btn {
+            width: 100%; padding: 0.875rem 1.5rem; border: none;
+            border-radius: var(--md-shape-full); font-size: 0.95rem;
+            font-weight: 500; cursor: pointer; font-family: 'Roboto', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+        .rank-card.vip .buy-btn { background: var(--vip-green); color: white; }
+        .rank-card.vip .buy-btn:hover { background: #166b32; box-shadow: var(--md-elevation-2); }
+        .rank-card.vipplus .buy-btn { background: var(--vipplus-blue); color: white; }
+        .rank-card.vipplus .buy-btn:hover { background: #0053a3; box-shadow: var(--md-elevation-2); }
+        .rank-card.vipmax .buy-btn { background: var(--vipmax-purple); color: white; }
+        .rank-card.vipmax .buy-btn:hover { background: #624678; box-shadow: var(--md-elevation-2); }
+        .buy-btn:hover { transform: translateY(-2px); }
+        .buy-btn:active { transform: translateY(0); }
+
+        /* ===== INFO CARDS ===== */
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .info-card {
+            background: var(--md-surface-container-low);
+            border: 1px solid var(--md-outline-variant);
+            border-radius: var(--md-shape-xl); padding: 2rem;
+            transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+        }
+        .info-card:hover { box-shadow: var(--md-elevation-2); transform: translateY(-3px); }
+        .info-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .info-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .info-text { color: var(--md-on-surface-variant); line-height: 1.7; font-size: 0.95rem; }
+
+        .kit-placeholder {
+            background: var(--md-surface-container); border: 2px dashed var(--md-outline-variant);
+            border-radius: var(--md-shape-lg); padding: 2.5rem 1.5rem;
+            text-align: center; margin-top: 1rem; transition: border-color 0.3s;
+        }
+        .kit-placeholder:hover { border-color: var(--vipmax-purple); }
+        .kit-visual {
+            font-size: 4rem; margin-bottom: 1rem;
+            animation: kitFloat 3s ease-in-out infinite;
+        }
+        @keyframes kitFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .kit-text {
+            font-size: 1.5rem; font-weight: 700; color: var(--vipmax-purple);
+            margin-bottom: 0.5rem; letter-spacing: 3px;
+        }
+        .kit-subtext { color: var(--md-on-surface-variant); font-size: 0.95rem; }
+
+        /* ===== ADDITIONAL INFO ===== */
+        .additional-info {
+            background: var(--md-surface-container-low);
+            border: 1px solid var(--md-outline-variant);
+            border-radius: var(--md-shape-xl); padding: 2.5rem; text-align: center;
+        }
+        .additional-info-text {
+            font-size: 1.125rem; color: var(--md-on-surface-variant);
+            line-height: 1.8; max-width: 800px; margin: 0 auto 1.5rem;
+        }
+        .coming-soon-text { font-size: 1.25rem; font-weight: 500; color: var(--md-on-surface-variant); font-style: italic; }
+
+        /* ===== FAQ ===== */
+        .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .faq-item {
+            background: var(--md-surface-container-low);
+            border: 1px solid var(--md-outline-variant);
+            border-radius: var(--md-shape-md); overflow: hidden;
+            transition: border-color 0.3s;
+        }
+        .faq-item:hover { border-color: var(--md-outline); }
+        .faq-question {
+            width: 100%; padding: 1.125rem 1.25rem; background: none; border: none;
+            color: var(--md-on-surface); font-size: 1rem; font-weight: 500;
+            cursor: pointer; display: flex; justify-content: space-between;
+            align-items: center; text-align: left; font-family: 'Roboto', sans-serif;
+            transition: color 0.2s;
+        }
+        .faq-question:hover { color: var(--md-primary); }
+        .faq-toggle { font-size: 1.5rem; transition: transform 0.3s var(--md-motion); color: var(--md-on-surface-variant); }
+        .faq-item.active .faq-toggle { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s var(--md-motion); }
+        .faq-answer-content { padding: 0 1.25rem 1.125rem; color: var(--md-on-surface-variant); line-height: 1.7; font-size: 0.95rem; }
+        .faq-item.active .faq-answer { max-height: 300px; }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            z-index: 2000; display: flex; align-items: center; justify-content: center;
+            padding: 1rem; opacity: 0; visibility: hidden; transition: opacity 0.3s var(--md-motion);
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal {
+            background: var(--md-surface-container-low); border: 1px solid var(--md-outline-variant);
+            border-radius: var(--md-shape-xl); padding: 1.75rem; max-width: 420px; width: 100%;
+            transform: scale(0.95); transition: transform 0.3s var(--md-motion);
+            max-height: 90vh; overflow-y: auto; box-shadow: var(--md-elevation-4);
+        }
+        .modal-overlay.active .modal { transform: scale(1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+        .modal-title { font-size: 1.375rem; font-weight: 700; }
+        .modal-close {
+            background: none; border: none; color: var(--md-on-surface-variant);
+            font-size: 1.5rem; cursor: pointer; padding: 0.5rem; line-height: 1;
+            border-radius: var(--md-shape-full); transition: background 0.2s;
+        }
+        .modal-close:hover { background: rgba(0,0,0,0.08); }
+        .modal-rank-info {
+            background: var(--md-surface-container); border: 1px solid var(--md-outline-variant);
+            border-radius: var(--md-shape-md); padding: 1.25rem; margin-bottom: 1.25rem;
+        }
+        .modal-rank-name { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.375rem; }
+        .modal-rank-price { font-size: 1.5rem; font-weight: 700; color: var(--md-primary); }
+        .modal-form-group { margin-bottom: 1.25rem; }
+        .modal-label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--md-on-surface-variant); font-size: 0.875rem; }
+        .modal-input {
+            width: 100%; padding: 0.875rem 1rem; background: var(--md-surface-container);
+            border: 1px solid var(--md-outline-variant); border-radius: var(--md-shape-sm);
+            color: var(--md-on-surface); font-size: 1rem; font-family: 'Roboto', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .modal-input:focus { outline: none; border-color: var(--md-primary); box-shadow: 0 0 0 3px rgba(0,97,164,0.15); }
+        .modal-input.error { border-color: var(--md-error); }
+        .modal-error { color: var(--md-error); font-size: 0.8125rem; margin-top: 0.5rem; display: none; }
+        .modal-error.visible { display: block; }
+        .modal-submit {
+            width: 100%; padding: 1rem 1.5rem; background: var(--discord); border: none;
+            border-radius: var(--md-shape-full); color: white; font-size: 0.95rem;
+            font-weight: 500; cursor: pointer; font-family: 'Roboto', sans-serif;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+        }
+        .modal-submit:hover { background: #4752c4; box-shadow: var(--md-elevation-2); transform: translateY(-1px); }
+        .modal-submit svg { width: 20px; height: 20px; fill: white; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--md-surface-container-low); border-top: 1px solid var(--md-outline-variant);
+            padding: 3rem 1.5rem 2rem; text-align: center; margin-top: 4rem;
+        }
+        .footer-logo { font-size: 1.375rem; font-weight: 700; margin-bottom: 0.375rem; }
+        .footer-ip {
+            font-family: 'Roboto Mono', monospace; color: var(--md-primary);
+            font-weight: 600; margin-bottom: 1rem; font-size: 0.95rem;
+        }
+        .footer-socials { display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .footer-socials .social-btn { width: 42px; height: 42px; }
+        .footer-socials .social-btn svg { width: 20px; height: 20px; }
+        .footer-credits {
+            margin-bottom: 0.75rem; color: var(--md-on-surface-variant);
+            font-size: 0.875rem; line-height: 1.8;
+        }
+        .footer-credits strong { color: var(--md-on-surface); font-weight: 600; }
+        .footer-copyright { color: var(--md-on-surface-variant); font-size: 0.8125rem; }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: var(--md-on-surface); color: var(--md-surface);
+            padding: 0.75rem 1.5rem; border-radius: var(--md-shape-full);
+            font-size: 0.9rem; font-weight: 500; z-index: 3000;
+            opacity: 0; transition: transform 0.3s var(--md-motion), opacity 0.3s;
+            box-shadow: var(--md-elevation-4); pointer-events: none;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .ranks-grid { grid-template-columns: repeat(2, 1fr); }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed; top: 64px; right: -100%; width: 75%; max-width: 300px;
+                height: calc(100vh - 64px); background: var(--md-surface-container-low);
+                flex-direction: column; justify-content: flex-start; padding: 1.5rem;
+                gap: 0.25rem; border-left: 1px solid var(--md-outline-variant);
+                transition: right 0.35s var(--md-motion); overflow-y: auto;
+                box-shadow: var(--md-elevation-4);
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { width: 100%; padding: 0.875rem 1rem; font-size: 1rem; }
+            .nav-right .social-btn { display: none; }
+            .hamburger { display: flex; z-index: 1001; }
+            .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+            .hero { padding: 5rem 1.25rem 2.5rem; }
+            .section { padding: 3rem 1.25rem; }
+            .ranks-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+            .about-grid { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+            .hero-stats { gap: 1.5rem; }
+            .buy-btn { padding: 1rem 1.5rem; font-size: 1rem; }
+            .hero-cta { width: 100%; justify-content: center; }
+            .hero-cta-row { flex-direction: column; align-items: center; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .hero-badge { font-size: 0.8rem; padding: 0.375rem 0.75rem; }
+            .hero-ip-row { flex-direction: column; gap: 0.5rem; font-size: 0.875rem; padding: 0.75rem 1rem; }
+            .rank-price { font-size: 1.875rem; }
+            .section-title { font-size: 1.5rem; }
+            .hero-stats { gap: 1rem; }
+            .stat-value { font-size: 1.375rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effects"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="nav-logo-icon">⚡</span>
+                <span>StormMC</span>
+            </a>
+            <div class="nav-right">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#ranks">Ranks</a></li>
+                    <li><a href="#perks">Perks</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#ranks" class="nav-store-btn">🛒 Store</a></li>
+                    <li><a href="https://discord.gg/hCQ5aXRzk" target="_blank" class="social-btn discord" title="Join Discord" aria-label="Discord">
+                        <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                    </a></li>
+                    <li><a href="https://youtube.com/@stormafk" target="_blank" class="social-btn youtube" title="YouTube" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a></li>
+                </ul>
+                <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge reveal">
+                <span>⚡</span>
+                <span>Official StormMC Network</span>
+            </div>
+            <h1 class="reveal">⚡ StormMC</h1>
+            <p class="hero-description reveal">A premium Minecraft network built for adventure. Join thousands of players, unlock exclusive perks, and experience the storm.</p>
+            <div class="hero-ip-row reveal">
+                <span class="hero-ip-label">Server IP:</span>
+                <span class="hero-ip-value" id="serverIp">play.stormmc.top</span>
+                <button class="copy-ip-btn" id="copyIpBtn" type="button">📋 Copy</button>
+            </div>
+            <div class="hero-cta-row reveal">
+                <a href="#ranks" class="hero-cta primary">
+                    <span>🛒</span> View Ranks
+                </a>
+                <a href="https://discord.gg/hCQ5aXRzk" target="_blank" class="hero-cta discord">
+                    <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                    Join Discord
+                </a>
+                <a href="https://youtube.com/@stormafk" target="_blank" class="hero-cta youtube">
+                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    YouTube
+                </a>
+            </div>
+            <div class="hero-stats reveal">
+                <div class="stat-item">
+                    <div class="stat-value" data-count="3">3</div>
+                    <div class="stat-label">VIP Ranks</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" data-count="24">24/7</div>
+                    <div class="stat-label">Uptime</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">Adventure</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+        <div class="section-header">
+            <h2 class="section-title reveal">🌩️ About StormMC</h2>
+            <p class="section-subtitle reveal">A premium Minecraft network built with passion</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-card featured reveal">
+                <div class="about-icon">⚡</div>
+                <h3>StormMC Network</h3>
+                <p>StormMC is a premium Minecraft server network offering an enhanced gameplay experience with exclusive ranks, rewards, and a thriving community. Join us at <strong>play.stormmc.top</strong> and become part of the storm!</p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-icon">🎮</div>
+                <h3>What We Offer</h3>
+                <ul>
+                    <li>Premium VIP ranks with exclusive perks</li>
+                    <li>Daily kits, keys, and rewards</li>
+                    <li>In-game Points (Shards) economy</li>
+                    <li>Active community events</li>
+                </ul>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-icon">🌟</div>
+                <h3>Why Join Us?</h3>
+                <ul>
+                    <li>24/7 dedicated server hosting</li>
+                    <li>Fair gameplay with anti-cheat</li>
+                    <li>Regular updates and new content</li>
+                    <li>Active Discord community</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="section" id="team">
+        <div class="section-header">
+            <h2 class="section-title reveal">👥 Meet the Team</h2>
+            <p class="section-subtitle reveal">The people behind StormMC</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card owner reveal">
+                <div class="team-avatar">👑</div>
+                <div class="team-name">StormAFK</div>
+                <div class="team-role">Owner</div>
+                <p class="team-desc">Founder and owner of StormMC. Visionary behind the network's growth and development.</p>
+            </div>
+            <div class="team-card dev reveal">
+                <div class="team-avatar">💻</div>
+                <div class="team-name">Eqnity</div>
+                <div class="team-role">Developer</div>
+                <p class="team-desc">Core developer building and maintaining StormMC's systems and features.</p>
+            </div>
+            <div class="team-card dev reveal">
+                <div class="team-avatar">⚙️</div>
+                <div class="team-name">ItzMePrime</div>
+                <div class="team-role">Developer</div>
+                <p class="team-desc">Developer crafting new experiences and keeping StormMC running smoothly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RANKS -->
+    <section class="section" id="ranks">
+        <div class="section-header">
+            <h2 class="section-title reveal">⚡ StormMC Ranks & Perks</h2>
+            <p class="section-subtitle reveal">Choose your rank and unlock exclusive benefits on StormMC</p>
+        </div>
+        <div class="ranks-grid">
+            <!-- VIP -->
+            <article class="rank-card vip reveal">
+                <div class="rank-icon">🟢</div>
+                <h3 class="rank-name">VIP</h3>
+                <div class="rank-price"><span class="currency">Rs.</span>29</div>
+                <ul class="perks-list">
+                    <li><span class="perk-icon">🏠</span><span>3 Home Slots</span></li>
+                    <li><span class="perk-icon">🏷️</span><span>Extra Auction House (AH) Listings</span></li>
+                    <li><span class="perk-icon">🎁</span><span>Daily VIP Kit</span></li>
+                    <li><span class="perk-icon">🔑</span><span>Daily VIP Key</span></li>
+                    <li><span class="perk-icon">💎</span><span>+200 Points Daily</span></li>
+                </ul>
+                <p class="rank-note">Kit preview coming soon</p>
+                <button class="buy-btn" data-rank="VIP" data-price="29">Buy VIP</button>
+            </article>
+
+            <!-- VIP+ -->
+            <article class="rank-card vipplus reveal">
+                <div class="rank-badge popular">POPULAR</div>
+                <div class="rank-icon">🔵</div>
+                <h3 class="rank-name">VIP+</h3>
+                <div class="rank-price"><span class="currency">Rs.</span>49</div>
+                <ul class="perks-list">
+                    <li><span class="perk-icon">🏠</span><span>4 Home Slots</span></li>
+                    <li><span class="perk-icon">🏷️</span><span>More AH Listings than VIP</span></li>
+                    <li><span class="perk-icon">🎁</span><span>Daily VIP Kit</span></li>
+                    <li><span class="perk-icon">📦</span><span>More Order Listings than VIP</span></li>
+                    <li><span class="perk-icon">🔑</span><span>2 VIP Keys Daily</span></li>
+                    <li><span class="perk-icon">💎</span><span>+300 Points Daily</span></li>
+                </ul>
+                <button class="buy-btn" data-rank="VIP+" data-price="49">Buy VIP+</button>
+            </article>
+
+            <!-- VIP+ MAX -->
+            <article class="rank-card vipmax reveal">
+                <div class="rank-badge best-value">BEST VALUE</div>
+                <div class="rank-icon">🟣</div>
+                <h3 class="rank-name">VIP+ MAX</h3>
+                <div class="rank-price"><span class="currency">Rs.</span>99</div>
+                <ul class="perks-list">
+                    <li><span class="perk-icon">🏠</span><span>MAX Home Slots</span></li>
+                    <li><span class="perk-icon">🏷️</span><span>MAX AH Listings</span></li>
+                    <li><span class="perk-icon">📦</span><span>MAX Order Listings</span></li>
+                    <li><span class="perk-icon">🎁</span><span>Daily VIP Kit</span></li>
+                    <li><span class="perk-icon">🔑</span><span>3 VIP Keys Daily</span></li>
+                    <li><span class="perk-icon">🎁</span><span>All KeyAll Rewards ×3</span></li>
+                    <li><span class="perk-icon">💎</span><span>+400 Points Daily</span></li>
+                </ul>
+                <button class="buy-btn" data-rank="VIP+ MAX" data-price="99">Buy VIP+ MAX</button>
+            </article>
+        </div>
+    </section>
+
+    <!-- PERKS -->
+    <section class="section" id="perks">
+        <div class="section-header">
+            <h2 class="section-title reveal">💎 Points & Benefits</h2>
+            <p class="section-subtitle reveal">Learn about StormMC's reward system and VIP perks</p>
+        </div>
+        <div class="info-grid">
+            <div class="info-card reveal">
+                <div class="info-icon">💎</div>
+                <h3 class="info-title">What are Points?</h3>
+                <p class="info-text">Points are essentially Shards — StormMC's in-game currency/reward system. Earn points daily through VIP ranks and spend them on exclusive items, upgrades, and more!</p>
+            </div>
+            <div class="info-card reveal" id="vipkit">
+                <div class="info-icon">🎁</div>
+                <h3 class="info-title">VIP Kit</h3>
+                <div class="kit-placeholder">
+                    <div class="kit-visual">📦</div>
+                    <div class="kit-text">COMING SOON</div>
+                    <p class="kit-subtext">VIP Kit screenshots are coming soon!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+        <div class="section-header">
+            <h2 class="section-title reveal">❓ Frequently Asked Questions</h2>
+            <p class="section-subtitle reveal">Find answers to common questions about StormMC</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item active reveal">
+                <button class="faq-question">
+                    <span>How do I receive my rank after purchase?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">After joining our Discord and completing checkout, your rank will be processed and applied to your Minecraft account. Join the server and type <code>/ranks</code> to verify your new perks.</div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span>What are Points used for?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">Points (Shards) are StormMC's in-game currency. Use them to purchase cosmetics, special items, rank upgrades, and other exclusive rewards from the in-game store.</div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span>Can I upgrade my rank later?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">Yes! You can upgrade your rank at any time. Simply purchase the higher tier rank through our Discord store and contact an admin for assistance.</div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span>Is my rank permanent?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">All ranks are permanent and do not expire. Once purchased, you'll keep your rank and all associated perks forever on StormMC.</div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span>How do I join the Discord community?</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">Click any Discord button on this page or visit <a href="https://discord.gg/hCQ5aXRzk" target="_blank">discord.gg/hCQ5aXRzk</a>. Join to stay updated, get support, and connect with other players!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADDITIONAL INFO -->
+    <section class="section">
+        <div class="additional-info reveal">
+            <p class="additional-info-text">
+                🌩️ All VIP ranks include the VIP Kit along with many other perks and benefits. More perks may be added as StormMC continues to develop! 🌩️
+            </p>
+            <p class="coming-soon-text">More information coming soon...</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">⚡ StormMC</div>
+        <div class="footer-ip">"play.stormmc.top"</div>
+        <div class="footer-socials">
+            <a href="https://discord.gg/hCQ5aXRzk" target="_blank" class="social-btn discord" title="Discord" aria-label="Discord">
+                <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+            </a>
+            <a href="https://youtube.com/@stormafk" target="_blank" class="social-btn youtube" title="YouTube" aria-label="YouTube">
+                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+        </div>
+        <div class="footer-credits">
+            👑 Owner: <strong>StormAFK</strong><br>
+            💻 Developed by: <strong>Eqnity</strong> & <strong>ItzMePrime</strong>
+        </div>
+        <p class="footer-copyright">© 2026 StormMC. All rights reserved.</p>
+    </footer>
+
+    <!-- PURCHASE MODAL -->
+    <div class="modal-overlay" id="purchaseModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">StormMC Rank Purchase</h2>
+                <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-rank-info">
+                <div class="modal-rank-name" id="modalRankName">VIP</div>
+                <div class="modal-rank-price">Rs. <span id="modalRankPrice">29</span></div>
+            </div>
+            <form id="purchaseForm">
+                <div class="modal-form-group">
+                    <label class="modal-label" for="username">Minecraft Username</label>
+                    <input type="text" class="modal-input" id="username" placeholder="Enter your username" autocomplete="username" required>
+                    <div class="modal-error" id="usernameError">Please enter your Minecraft username</div>
+                </div>
+                <a href="https://discord.gg/hCQ5aXRzk" target="_blank" class="modal-submit" id="checkoutBtn">
+                    <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                    Continue to Checkout
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <script>
+        // ===== NAVBAR SCROLL =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.style.boxShadow = window.scrollY > 50 ? 'var(--md-elevation-2)' : 'none';
+        });
+
+        // ===== HAMBURGER =====
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ===== COPY IP =====
+        const copyBtn = document.getElementById('copyIpBtn');
+        const toast = document.getElementById('toast');
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText('play.stormmc.top').then(() => {
+                showToast('📋 Copied play.stormmc.top');
+            }).catch(() => {
+                showToast('Copy failed — manually copy play.stormmc.top');
+            });
+        });
+
+        // ===== SCROLL REVEAL =====
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ===== FAQ ACCORDION =====
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                if (!isActive) item.classList.add('active');
+            });
+        });
+
+        // ===== PURCHASE MODAL =====
+        const modal = document.getElementById('purchaseModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalRankName = document.getElementById('modalRankName');
+        const modalRankPrice = document.getElementById('modalRankPrice');
+        const usernameInput = document.getElementById('username');
+        const usernameError = document.getElementById('usernameError');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        document.querySelectorAll('.buy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                modalRankName.textContent = button.dataset.rank;
+                modalRankPrice.textContent = button.dataset.price;
+                usernameInput.value = '';
+                usernameInput.classList.remove('error');
+                usernameError.classList.remove('visible');
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+
+        checkoutBtn.addEventListener('click', (e) => {
+            const username = usernameInput.value.trim();
+            if (username === '') {
+                e.preventDefault();
+                usernameInput.classList.add('error');
+                usernameError.classList.add('visible');
+                return;
+            }
+            usernameInput.classList.remove('error');
+            usernameError.classList.remove('visible');
+        });
+
+        usernameInput.addEventListener('input', () => {
+            if (usernameInput.value.trim() !== '') {
+                usernameInput.classList.remove('error');
+                usernameError.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>
