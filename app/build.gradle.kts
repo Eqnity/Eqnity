@@ -2,10 +2,11 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-android")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("androidx.navigation.safeargs.kotlin")
+    id("androidx.room")
 }
 
 android {
@@ -47,9 +48,8 @@ android {
     }
     namespace = "com.eqnitymusic.damn"
 
-    // Kapt configuration to fix Hilt metadata issues
-    kapt {
-        correctErrorTypes = true
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 
     // Exclude problematic transitive dependencies causing duplicate classes
@@ -89,14 +89,13 @@ dependencies {
     implementation("androidx.media3:media3-session:1.3.1")
     implementation("androidx.media3:media3-common:1.3.1")
 
-    // Room Database
+    // Room Database (Room Gradle plugin handles KSP)
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
 
-    // Hilt Dependency Injection - Use 2.51.1+ for Kotlin 1.9.x compatibility
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-compiler:2.51.1")
+    // Hilt Dependency Injection - Use 2.50 for Kotlin 1.9.x compatibility (KSP)
+    implementation("com.google.dagger:hilt-android:2.50")
+    ksp("com.google.dagger:hilt-compiler:2.50")
     implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
     implementation("androidx.hilt:hilt-work:1.2.0")
 
@@ -110,9 +109,9 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
-    // Image loading (Glide - code uses Glide)
+    // Image loading (Glide - KSP)
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
+    ksp("com.github.bumptech.glide:compiler:4.16.0")
 
     // Palette for dynamic colors from album art
     implementation("androidx.palette:palette-ktx:1.0.0")
@@ -133,6 +132,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.48.1")
-    kaptAndroidTest("com.google.dagger:hilt-compiler:2.48.1")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.50")
+    kspAndroidTest("com.google.dagger:hilt-compiler:2.50")
 }
