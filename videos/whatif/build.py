@@ -5,6 +5,7 @@ Usage: python3 build.py topics/<topic>.py [--engine cycles|workbench] [--samples
 """
 import argparse
 import importlib.util
+import math
 import os
 import shutil
 import subprocess
@@ -49,12 +50,29 @@ def main():
     blender = shutil.which("blender") or "blender"
     # workbench needs a GL context; codespace has no GPU/display -> xvfb + mesa
     prefix = ["xvfb-run", "-a"] if args.engine == "workbench" else []
-    run(prefix + [blender, "-b", "-P", os.path.join(HERE, "scene.py"), "--",
-         "--out", frames, "--frames", f"0-{n}", "--engine", args.engine,
+    # parallel chunks: split frame range across CPU workers (identical quality,
+    # workbench is single-threaded per process)
+    workers = max(1, min(4, os.cpu_count() or 1))
+    spans = []
+    per = math.ceil((n + 1) / workers)
+    s = 0
+    while s <= n:
+        e = min(n, s + per - 1)
+        spans.append((s, e))
+        s = e + 1
+    procs = []
+    for i, (a, b) in enumerate(spans):
+        c = prefix + [blender, "-b", "-P", os.path.join(HERE, "scene.py"), "--",
+         "--out", frames, "--frames", f"{a}-{b}", "--engine", args.engine,
          "--samples", str(args.samples), "--fps", str(T["fps"]),
          "--day-start-t", str(T["day_start_t"]),
          "--day-end-t", str(T["day_end_t"]),
-         "--day-max", str(T["day_max"])])
+         "--day-max", str(T["day_max"])]
+        print(f"chunk {i}: frames {a}-{b}", flush=True)
+        procs.append(subprocess.Popen(c))
+    rc = [p.wait() for p in procs]
+    if any(rc):
+        sys.exit(f"blender chunk failed: {rc}")
 
     # ---- 3. overlay ----
     run([sys.executable, os.path.join(HERE, "overlay.py"), frames, args.topic])
