@@ -47,7 +47,9 @@ def main():
     # ---- 2. Blender frames ----
     n = int(T["duration"] * T["fps"]) - 1
     blender = shutil.which("blender") or "blender"
-    run([blender, "-b", "-P", os.path.join(HERE, "scene.py"), "--",
+    # workbench needs a GL context; codespace has no GPU/display -> xvfb + mesa
+    prefix = ["xvfb-run", "-a"] if args.engine == "workbench" else []
+    run(prefix + [blender, "-b", "-P", os.path.join(HERE, "scene.py"), "--",
          "--out", frames, "--frames", f"0-{n}", "--engine", args.engine,
          "--samples", str(args.samples), "--fps", str(T["fps"]),
          "--day-start-t", str(T["day_start_t"]),
