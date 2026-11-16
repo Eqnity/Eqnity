@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="bottomNavItemTint" format="color|reference" />
+    <attr name="navItemTextColor" format="color|reference" />
+    <attr name="navItemIconTint" format="color|reference" />
+    <attr name="switchThumbColor" format="color|reference" />
+    <attr name="switchTrackColor" format="color|reference" />
+    <attr name="checkboxButtonTint" format="color|reference" />
+    <attr name="radioButtonTint" format="color|reference" />
+</resources>

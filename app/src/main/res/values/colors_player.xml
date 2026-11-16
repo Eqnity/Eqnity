@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Additional player-specific colors -->
+    <color name="player_bg_start">#0A0A0A</color>
+    <color name="player_bg_end">#1A1A2E</color>
+    <color name="progress_track">#3D3D3D</color>
+    <color name="progress_thumb">#FA2D48</color>
+    <color name="progress_thumb_pressed">#E02640</color>
+</resources>

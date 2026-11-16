@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing System (4dp base unit) -->
+    <dimen name="spacing_xxxs">2dp</dimen>
+    <dimen name="spacing_xxs">4dp</dimen>
+    <dimen name="spacing_xs">8dp</dimen>
+    <dimen name="spacing_sm">12dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+    <dimen name="spacing_xxxl">64dp</dimen>
+
+    <!-- Component Dimensions -->
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_height_large">56dp</dimen>
+    <dimen name="button_min_width">88dp</dimen>
+    <dimen name="button_padding_horizontal">24dp</dimen>
+    <dimen name="button_padding_horizontal_large">32dp</dimen>
+
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_size_mini">40dp</dimen>
+    <dimen name="fab_icon_size">24dp</dimen>
+
+    <dimen name="icon_size_xs">16dp</dimen>
+    <dimen name="icon_size_sm">20dp</dimen>
+    <dimen name="icon_size_md">24dp</dimen>
+    <dimen name="icon_size_lg">32dp</dimen>
+    <dimen name="icon_size_xl">48dp</dimen>
+    <dimen name="icon_size_xxl">64dp</dimen>
+
+    <dimen name="avatar_size_xs">24dp</dimen>
+    <dimen name="avatar_size_sm">32dp</dimen>
+    <dimen name="avatar_size_md">40dp</dimen>
+    <dimen name="avatar_size_lg">56dp</dimen>
+    <dimen name="avatar_size_xl">80dp</dimen>
+    <dimen name="avatar_size_xxl">120dp</dimen>
+
+    <!-- Album Art -->
+    <dimen name="album_art_size_small">56dp</dimen>
+    <dimen name="album_art_size_medium">80dp</dimen>
+    <dimen name="album_art_size_large">120dp</dimen>
+    <dimen name="album_art_size_xlarge">200dp</dimen>
+    <dimen name="album_art_size_full">300dp</dimen>
+    <dimen name="album_art_corner_radius">8dp</dimen>
+    <dimen name="album_art_corner_radius_large">12dp</dimen>
+
+    <!-- Player -->
+    <dimen name="player_height_collapsed">72dp</dimen>
+    <dimen name="player_height_expanded">100%</dimen>
+    <dimen name="player_handle_height">4dp</dimen>
+    <dimen name="player_handle_width">40dp</dimen>
+    <dimen name="player_handle_corner_radius">2dp</dimen>
+    <dimen name="player_art_size">64dp</dimen>
+    <dimen name="player_art_size_expanded">280dp</dimen>
+    <dimen name="player_control_button_size">48dp</dimen>
+    <dimen name="player_play_button_size">64dp</dimen>
+    <dimen name="player_progress_height">4dp</dimen>
+
+    <!-- Bottom Navigation -->
+    <dimen name="bottom_nav_height">80dp</dimen>
+    <dimen name="bottom_nav_icon_size">24dp</dimen>
+    <dimen name="bottom_nav_text_size">11sp</dimen>
+    <dimen name="bottom_nav_padding_top">4dp</dimen>
+    <dimen name="bottom_nav_padding_bottom">8dp</dimen>
+
+    <!-- Top App Bar -->
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="toolbar_title_size">20sp</dimen>
+
+    <!-- Cards & Lists -->
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_corner_radius_small">12dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_elevation_raised">8dp</dimen>
+    <dimen name="list_item_height">72dp</dimen>
+    <dimen name="list_item_padding_horizontal">16dp</dimen>
+    <dimen name="list_item_padding_vertical">12dp</dimen>
+    <dimen name="list_divider_height">1dp</dimen>
+    <dimen name="list_section_header_height">48dp</dimen>
+
+    <!-- Chips -->
+    <dimen name="chip_height">36dp</dimen>
+    <dimen name="chip_corner_radius">18dp</dimen>
+    <dimen name="chip_padding_horizontal">12dp</dimen>
+
+    <!-- Text Fields -->
+    <dimen name="text_field_height">56dp</dimen>
+    <dimen name="text_field_padding_horizontal">16dp</dimen>
+
+    <!-- Dialogs -->
+    <dimen name="dialog_corner_radius">20dp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
+    <dimen name="dialog_max_width">560dp</dimen>
+
+    <!-- Bottom Sheets -->
+    <dimen name="bottom_sheet_corner_radius">20dp</dimen>
+    <dimen name="bottom_sheet_handle_size">40dp</dimen>
+    <dimen name="bottom_sheet_peek_height">200dp</dimen>
+
+    <!-- Progress Indicators -->
+    <dimen name="progress_thickness">4dp</dimen>
+    <dimen name="progress_corner_radius">2dp</dimen>
+    <dimen name="circular_progress_size">48dp</dimen>
+    <dimen name="circular_progress_stroke">4dp</dimen>
+
+    <!-- Margins -->
+    <dimen name="margin_screen_edge">16dp</dimen>
+    <dimen name="margin_screen_edge_large">24dp</dimen>
+    <dimen name="margin_component">12dp</dimen>
+    <dimen name="margin_component_large">16dp</dimen>
+
+    <!-- Animations (use integers.xml for durations) -->
+    <dimen name="animation_duration_fast">150</dimen>
+    <dimen name="animation_duration_medium">250</dimen>
+    <dimen name="animation_duration_slow">350</dimen>
+    <dimen name="animation_duration_very_slow">500</dimen>
+</resources>

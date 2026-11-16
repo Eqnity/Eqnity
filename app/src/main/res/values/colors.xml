@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 60-3-10 Color Rule Implementation -->
+    <!-- 60% Primary Surface (Dark backgrounds) -->
+    <!-- 30% Secondary Surface (Cards, sheets) -->
+    <!-- 10% Accent (Interactive elements, highlights) -->
+
+    <!-- Dark Theme - Primary (60%) -->
+    <color name="surface_primary">#121212</color>      <!-- Main background - true black with slight elevation -->
+    <color name="surface_primary_variant">#1E1E1E</color> <!-- Elevated surfaces -->
+    <color name="surface_primary_elevated">#242424</color> <!-- Higher elevation -->
+
+    <!-- Dark Theme - Secondary (30%) -->
+    <color name="surface_secondary">#1A1A1A</color>     <!-- Cards, bottom sheets -->
+    <color name="surface_secondary_variant">#212121</color> <!-- Card variants -->
+    <color name="surface_secondary_elevated">#2A2A2A</color> <!-- Elevated cards -->
+
+    <!-- Dark Theme - Accent (10%) -->
+    <color name="accent_primary">#FA2D48</color>        <!-- Apple Music Red - Primary accent -->
+    <color name="accent_primary_variant">#E02640</color> <!-- Pressed state -->
+    <color name="accent_primary_container">#3D1218</color> <!-- Subtle backgrounds -->
+    <color name="accent_secondary">#BB86FC</color>      <!-- Purple accent for variety -->
+    <color name="accent_secondary_variant">#A06EE0</color>
+    <color name="accent_secondary_container">#1D1226</color>
+
+    <!-- Text Colors - High Contrast -->
+    <color name="text_primary">#FFFFFF</color>          <!-- Primary text - pure white -->
+    <color name="text_secondary">#B3B3B3</color>        <!-- Secondary text - 70% opacity -->
+    <color name="text_tertiary">#808080</color>         <!-- Tertiary text - 50% opacity -->
+    <color name="text_on_accent">#FFFFFF</color>       <!-- Text on accent backgrounds -->
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_secondary">#FFFFFF</color>
+
+    <!-- Outline & Dividers -->
+    <color name="outline">#333333</color>              <!-- Subtle borders -->
+    <color name="outline_variant">#2A2A2A</color>       <!-- Very subtle borders -->
+    <color name="divider">#292929</color>              <!-- List dividers -->
+
+    <!-- State Colors -->
+    <color name="error">#CF6679</color>
+    <color name="error_container">#4B1018</color>
+    <color name="success">#4CAF50</color>
+    <color name="success_container">#0D2B0D</color>
+    <color name="warning">#FFB74D</color>
+    <color name="warning_container">#3D2B0A</color>
+
+    <!-- Overlay Scrim -->
+    <color name="scrim">#80000000</color>               <!-- 50% black overlay -->
+    <color name="scrim_light">#40000000</color>        <!-- 25% black overlay -->
+
+    <!-- Dynamic Gradient Placeholders (replaced at runtime) -->
+    <color name="gradient_start">#FA2D48</color>
+    <color name="gradient_end">#BB86FC</color>
+    <color name="gradient_middle">#7C4DFF</color>
+
+    <!-- Player specific -->
+    <color name="player_background">#0A0A0A</color>
+    <color name="player_handle">#333333</color>
+    <color name="progress_active">#FA2D48</color>
+    <color name="progress_inactive">#3D3D3D</color>
+    <color name="progress_buffered">#5C1A1F</color>
+
+    <!-- Tab bar -->
+    <color name="tab_background">#1A1A1A</color>
+    <color name="tab_selected">#FA2D48</color>
+    <color name="tab_unselected">#808080</color>
+    <color name="tab_indicator">#FA2D48</color>
+
+    <!-- Download states -->
+    <color name="download_pending">#FFB74D</color>
+    <color name="download_active">#42A5F5</color>
+    <color name="download_complete">#66BB6A</color>
+    <color name="download_error">#EF5350</color>
+
+    <!-- Legacy support -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+</resources>

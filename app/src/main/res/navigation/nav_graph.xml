@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.eqnitymusic.damn.ui.home.HomeFragment"
+        android:label="@string/tab_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/actionHomeToAddToPlaylist"
+            app:destination="@id/addToPlaylistFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/playlistsFragment"
+        android:name="com.eqnitymusic.damn.ui.playlists.PlaylistsFragment"
+        android:label="@string/tab_playlists"
+        tools:layout="@layout/fragment_playlists">
+        <action
+            android:id="@+id/actionPlaylistsToPlaylistDetail"
+            app:destination="@id/playlistDetailFragment" />
+        <action
+            android:id="@+id/actionPlaylistsToAddSongs"
+            app:destination="@id/addSongsToPlaylistFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/supportFragment"
+        android:name="com.eqnitymusic.damn.ui.support.SupportFragment"
+        android:label="@string/tab_support"
+        tools:layout="@layout/fragment_support" />
+
+    <fragment
+        android:id="@+id/addToPlaylistFragment"
+        android:name="com.eqnitymusic.damn.ui.playlists.AddToPlaylistFragment"
+        android:label="@string/add_to_playlist_title"
+        tools:layout="@layout/dialog_add_to_playlist">
+        <argument
+            android:name="trackId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/playlistDetailFragment"
+        android:name="com.eqnitymusic.damn.ui.playlists.PlaylistDetailFragment"
+        android:label="@string/tab_playlists"
+        tools:layout="@layout/fragment_playlist_detail">
+        <argument
+            android:name="playlistId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addSongsToPlaylistFragment"
+        android:name="com.eqnitymusic.damn.ui.playlists.AddSongsToPlaylistFragment"
+        android:label="@string/playlist_add_songs"
+        tools:layout="@layout/fragment_add_songs_to_playlist">
+        <argument
+            android:name="playlistId"
+            app:argType="long" />
+    </fragment>
+</navigation>

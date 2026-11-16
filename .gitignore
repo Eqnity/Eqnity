@@ -1,0 +1,50 @@
+# Gradle
+.gradle/
+build/
+*/build/
+*/build/*
+!*/build/**/src/main/
+
+# Local configuration
+local.properties
+*.local.properties
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+*.iml
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Keystore
+*.jks
+*.keystore
+
+# Android
+*.apk
+*.ap_
+*.aab
+output/
+
+# Gradle wrapper
+gradle/wrapper/gradle-wrapper.jar
+
+# Kotlin
+*.klib
+
+# Coverage
+coverage/
+
+# Firebase
+google-services.json
+
+# Build configs
+gradle.properties.local

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content xmlns:android="http://schemas.android.com/apk/res/android">
+    <include domain="database" path="eqnity_music.db" />
+    <include domain="sharedpref" path="eqnity_music_prefs.xml" />
+    <exclude domain="file" path="cache/" />
+    <exclude domain="file" path="Music/.thumbnails/" />
+</full-backup-content>
