@@ -128,6 +128,7 @@
     <!-- File Info -->
     <string name="file_info_title">File Information</string>
     <string name="file_info_name">Name</string>
+    <string name="file_info_artist">Artist</string>
     <string name="file_info_path">Path</string>
     <string name="file_info_size">Size</string>
     <string name="file_info_duration">Duration</string>

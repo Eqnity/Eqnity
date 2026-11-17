@@ -176,7 +176,7 @@ class MainActivity : AppCompatActivity() {
         if (binding.fullPlayerContainer.visibility == View.VISIBLE) return
         binding.fullPlayerContainer.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction()
-            .replace(R.id.full_player_container, PlayerFragment())
+            .replace(R.id.fullPlayerContainer, PlayerFragment())
             .commit()
         binding.fullPlayerContainer.alpha = 0f
         binding.fullPlayerContainer.animate().alpha(1f).setDuration(200).start()
@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity() {
             .setDuration(200)
             .withEndAction {
                 binding.fullPlayerContainer.visibility = View.GONE
-                supportFragmentManager.findFragmentById(R.id.full_player_container)?.let {
+                supportFragmentManager.findFragmentById(R.id.fullPlayerContainer)?.let {
                     supportFragmentManager.beginTransaction().remove(it).commit()
                 }
             }

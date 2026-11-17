@@ -99,13 +99,13 @@ class AddSongsFragment : Fragment() {
                     viewModel.getPlaylistMusicTracks(playlistId).none { it.id == trackId }
                 }
                 if (toActuallyAdd.isEmpty()) {
-                    showSnackbar(binding.root, getString(R.string.success_saved))
+                    binding.root.showSnackbar(getString(R.string.success_saved))
                 } else {
                     viewModel.addTrackToPlaylist(playlistId, toActuallyAdd.first())
                     toActuallyAdd.drop(1).forEach { trackId ->
                         viewModel.addTrackToPlaylist(playlistId, trackId)
                     }
-                    showSnackbar(binding.root, getString(R.string.success_saved))
+                    binding.root.showSnackbar(getString(R.string.success_saved))
                 }
                 parentFragmentManager.popBackStack()
             }

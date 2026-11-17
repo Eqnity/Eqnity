@@ -115,7 +115,7 @@ class PlaylistDetailFragment : Fragment() {
             .setPositiveButton(R.string.menu_delete) { _, _ ->
                 lifecycleScope.launch {
                     viewModel.removeTrackFromPlaylist(playlistId, track.id)
-                    showSnackbar(binding.root, getString(R.string.success_deleted))
+                    binding.root.showSnackbar(getString(R.string.success_deleted))
                 }
             }
             .setNegativeButton(R.string.download_dialog_cancel, null)

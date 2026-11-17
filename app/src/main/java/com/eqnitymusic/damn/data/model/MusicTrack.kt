@@ -7,7 +7,6 @@ import com.eqnitymusic.damn.data.db.Converters
 import java.io.Serializable
 
 @Entity(tableName = "music_tracks")
-@Serializable
 data class MusicTrack(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,

@@ -45,7 +45,7 @@ class MediaPlaybackService : MediaSessionService() {
 
     private fun initialize() {
         val audioAttributes = AudioAttributes.Builder()
-            .setUsage(C.AUDIO_USAGE_MEDIA)
+            .setUsage(C.USAGE_MEDIA)
             .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
             .build()
 
@@ -88,7 +88,6 @@ class MediaPlaybackService : MediaSessionService() {
                 MediaMetadata.Builder()
                     .setTitle(track.getDisplayTitle())
                     .setArtist(track.getDisplayArtist())
-                    .setDurationMs(track.duration)
                     .build()
             )
             .build()

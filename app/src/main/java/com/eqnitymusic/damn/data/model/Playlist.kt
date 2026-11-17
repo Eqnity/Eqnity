@@ -11,7 +11,6 @@ import java.io.Serializable
     indices = [Index(value = ["name"], unique = true)],
     foreignKeys = []
 )
-@Serializable
 data class Playlist(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,

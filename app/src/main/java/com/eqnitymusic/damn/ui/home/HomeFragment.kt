@@ -145,7 +145,7 @@ class HomeFragment : Fragment() {
                         )
                         .build()
                 )
-            showSnackbar(binding.root, getString(R.string.download_started))
+            binding.root.showSnackbar(getString(R.string.download_started))
         }
     }
 
@@ -168,7 +168,7 @@ class HomeFragment : Fragment() {
             .setPositiveButton(R.string.menu_delete) { _, _ ->
                 lifecycleScope.launch {
                     viewModel.deleteTrack(track)
-                    showSnackbar(binding.root, getString(R.string.success_deleted))
+                    binding.root.showSnackbar(getString(R.string.success_deleted))
                 }
             }
             .setNegativeButton(R.string.download_dialog_cancel, null)
@@ -179,7 +179,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             val playlists = viewModel.playlists.value
             if (playlists.isEmpty()) {
-                showSnackbar(binding.root, getString(R.string.playlist_empty))
+                binding.root.showSnackbar(getString(R.string.playlist_empty))
                 return@launch
             }
             val names = playlists.map { it.getDisplayName() }.toTypedArray()
@@ -189,7 +189,7 @@ class HomeFragment : Fragment() {
                     val playlist = playlists[which]
                     lifecycleScope.launch {
                         viewModel.addTrackToPlaylist(playlist.id, track.id)
-                        showSnackbar(binding.root, getString(R.string.success_saved))
+                        binding.root.showSnackbar(getString(R.string.success_saved))
                     }
                 }
                 .setNegativeButton(R.string.download_dialog_cancel, null)

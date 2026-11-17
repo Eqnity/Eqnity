@@ -93,7 +93,7 @@ class PlaylistsFragment : Fragment() {
         lifecycleScope.launch {
             val tracks = viewModel.getPlaylistMusicTracks(playlist.id)
             if (tracks.isEmpty()) {
-                showSnackbar(binding.root, getString(R.string.playlist_songs_empty))
+                binding.root.showSnackbar(getString(R.string.playlist_songs_empty))
                 return@launch
             }
             (requireActivity() as MainActivity).playTracks(tracks, 0)
@@ -104,7 +104,7 @@ class PlaylistsFragment : Fragment() {
         showNameDialog(getString(R.string.playlist_create_title), "") { name ->
             lifecycleScope.launch {
                 viewModel.createPlaylist(name)
-                showSnackbar(binding.root, getString(R.string.success_saved))
+                binding.root.showSnackbar(getString(R.string.success_saved))
             }
         }
     }
@@ -113,7 +113,7 @@ class PlaylistsFragment : Fragment() {
         showNameDialog(getString(R.string.playlist_rename), playlist.name) { name ->
             lifecycleScope.launch {
                 viewModel.renamePlaylist(playlist, name)
-                showSnackbar(binding.root, getString(R.string.success_saved))
+                binding.root.showSnackbar(getString(R.string.success_saved))
             }
         }
     }
@@ -153,7 +153,7 @@ class PlaylistsFragment : Fragment() {
             .setPositiveButton(R.string.playlist_delete) { _, _ ->
                 lifecycleScope.launch {
                     viewModel.deletePlaylist(playlist)
-                    showSnackbar(binding.root, getString(R.string.success_deleted))
+                    binding.root.showSnackbar(getString(R.string.success_deleted))
                 }
             }
             .setNegativeButton(R.string.download_dialog_cancel, null)
