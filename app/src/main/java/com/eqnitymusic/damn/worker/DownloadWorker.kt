@@ -13,6 +13,8 @@ import com.eqnitymusic.damn.data.model.MusicTrack
 import com.eqnitymusic.damn.data.network.ApiService
 import com.eqnitymusic.damn.data.repository.DownloadRepository
 import com.eqnitymusic.damn.data.repository.MusicRepository
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -23,12 +25,11 @@ import okio.sink
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
-import javax.inject.Inject
 
 @HiltWorker
-class DownloadWorker @Inject constructor(
-    context: Context,
-    params: WorkerParameters,
+class DownloadWorker @AssistedInject constructor(
+    @Assisted context: Context,
+    @Assisted params: WorkerParameters,
     private val downloadRepository: DownloadRepository,
     private val musicRepository: MusicRepository,
     private val apiService: ApiService,
