@@ -90,6 +90,7 @@ dependencies {
     // Room Database (Room Gradle plugin handles KSP)
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
 
     // Hilt Dependency Injection - Use 2.50 for Kotlin 1.9.x compatibility (KSP)
     implementation("com.google.dagger:hilt-android:2.50")
