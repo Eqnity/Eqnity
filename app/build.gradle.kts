@@ -43,7 +43,6 @@ android {
     }
     buildFeatures {
         viewBinding = true
-        dataBinding = true
         buildConfig = true
     }
     namespace = "com.eqnitymusic.damn"
