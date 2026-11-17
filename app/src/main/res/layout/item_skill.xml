@@ -1,52 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/spacing_sm"
-    app:cardCornerRadius="@dimen/card_corner_radius_small"
-    app:cardBackgroundColor="@color/surface_secondary"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/outline_variant"
-    app:strokeWidth="1dp">
+    android:background="@drawable/bg_item_rounded"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/ivSkillIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/support_section_skills"
+        android:src="@drawable/ic_code"
+        android:tint="@color/accent_primary" />
+
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_md">
-
-        <ImageView
-            android:id="@+id/iv_skill_icon"
-            android:layout_width="@dimen/icon_size_lg"
-            android:layout_height="@dimen/icon_size_lg"
-            android:tint="@color/accent_primary"
-            android:contentDescription="@string/desc_album_art"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_skill_title"
-            android:layout_width="0dp"
+            android:id="@+id/tvSkillTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.EqnityMusic.TitleSmall"
-            android:textColor="@color/text_primary"
-            app:layout_constraintStart_toEndOf="@id/iv_skill_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="@dimen/spacing_md" />
+            android:textColor="@color/text_primary" />
 
         <TextView
-            android:id="@+id/tv_skill_description"
-            android:layout_width="0dp"
+            android:id="@+id/tvSkillDescription"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.EqnityMusic.BodySmall"
-            android:textColor="@color/text_secondary"
-            app:layout_constraintStart_toStartOf="@id/tv_skill_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_skill_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/spacing_xxs"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+            android:textColor="@color/text_secondary" />
+
+        <TextView
+            android:id="@+id/tvSkillTech"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.EqnityMusic.BodySmall"
+            android:textColor="@color/accent_primary" />
+
+    </LinearLayout>
+
+</LinearLayout>

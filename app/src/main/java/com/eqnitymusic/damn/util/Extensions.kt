@@ -14,6 +14,7 @@ import com.eqnitymusic.damn.R
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -67,7 +68,7 @@ fun Bitmap.getDominantColors(): Pair<Int, Int> {
 
     val width = width
     val height = height
-    val step = max(1, width / 50) // Sample every N pixels
+    val step = kotlin.math.max(1, width / 50) // Sample every N pixels
 
     for (x in 0 until width step step) {
         for (y in 0 until height step step) {
@@ -89,10 +90,10 @@ fun Bitmap.getDominantColors(): Pair<Int, Int> {
     return avgColor to complementColor
 }
 
-inline fun <T> CoroutineScope.launchMain(block: suspend CoroutineScope.() -> T) {
-    launch(Dispatchers.Main) { block() }
+fun <T> CoroutineScope.launchMain(block: suspend CoroutineScope.() -> T): Job {
+    return launch(Dispatchers.Main) { block() }
 }
 
-inline fun <T> CoroutineScope.launchIO(block: suspend CoroutineScope.() -> T) {
-    launch(Dispatchers.IO) { block() }
+fun <T> CoroutineScope.launchIO(block: suspend CoroutineScope.() -> T): Job {
+    return launch(Dispatchers.IO) { block() }
 }

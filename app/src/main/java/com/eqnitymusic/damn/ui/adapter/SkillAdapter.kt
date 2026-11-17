@@ -5,23 +5,28 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.eqnitymusic.damn.data.network.EqnityInfoResponse
+import com.eqnitymusic.damn.R
+import com.eqnitymusic.damn.data.network.Skill
 import com.eqnitymusic.damn.databinding.ItemSkillBinding
 
-class SkillAdapter : ListAdapter<EqnityInfoResponse.Skill, SkillAdapter.SkillViewHolder>(DiffCallback()) {
+class SkillAdapter : ListAdapter<Skill, SkillAdapter.SkillViewHolder>(DiffCallback()) {
 
-    inner class SkillViewHolder(private val binding: ItemSkillBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(skill: EqnityInfoResponse.Skill) {
+    inner class SkillViewHolder(private val binding: ItemSkillBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(skill: Skill) {
             binding.tvSkillTitle.text = skill.title
             binding.tvSkillDescription.text = skill.description
-            // Icon would be set based on skill title
-            when (skill.title.lowercase()) {
-                "websites" -> binding.ivSkillIcon.setImageResource(R.drawable.ic_web)
-                "discord bots" -> binding.ivSkillIcon.setImageResource(R.drawable.ic_bot)
-                "minecraft clients" -> binding.ivSkillIcon.setImageResource(R.drawable.ic_minecraft)
-                "minecraft mods" -> binding.ivSkillIcon.setImageResource(R.drawable.ic_mod)
-                else -> binding.ivSkillIcon.setImageResource(R.drawable.ic_code)
+            binding.tvSkillTech.text = skill.technologies
+
+            val icon = when (skill.title.lowercase()) {
+                "websites" -> R.drawable.ic_web
+                "discord bots" -> R.drawable.ic_bot
+                "minecraft clients" -> R.drawable.ic_minecraft
+                "minecraft mods" -> R.drawable.ic_mod
+                else -> R.drawable.ic_code
             }
+            binding.ivSkillIcon.setImageResource(icon)
         }
     }
 
@@ -34,13 +39,11 @@ class SkillAdapter : ListAdapter<EqnityInfoResponse.Skill, SkillAdapter.SkillVie
         holder.bind(getItem(position))
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<EqnityInfoResponse.Skill>() {
-        override fun areItemsTheSame(oldItem: EqnityInfoResponse.Skill, newItem: EqnityInfoResponse.Skill): Boolean {
-            return oldItem.title == newItem.title
-        }
+    class DiffCallback : DiffUtil.ItemCallback<Skill>() {
+        override fun areItemsTheSame(oldItem: Skill, newItem: Skill): Boolean =
+            oldItem.title == newItem.title
 
-        override fun areContentsTheSame(oldItem: EqnityInfoResponse.Skill, newItem: EqnityInfoResponse.Skill): Boolean {
-            return oldItem == newItem
-        }
+        override fun areContentsTheSame(oldItem: Skill, newItem: Skill): Boolean =
+            oldItem == newItem
     }
 }

@@ -3,7 +3,10 @@ package com.eqnitymusic.damn.ui.support
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eqnitymusic.damn.data.network.ApiService
+import com.eqnitymusic.damn.data.network.ContactInfo
 import com.eqnitymusic.damn.data.network.EqnityInfoResponse
+import com.eqnitymusic.damn.data.network.Links
+import com.eqnitymusic.damn.data.network.Skill
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,7 +40,6 @@ class SupportViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     _info.value = response.body()
                 } else {
-                    // Fallback to static data
                     _info.value = getFallbackInfo()
                 }
             } catch (e: Exception) {
@@ -53,34 +55,36 @@ class SupportViewModel @Inject constructor(
         return EqnityInfoResponse(
             name = "Eqnity",
             tagline = "Developer · Creator · Minecraft nerd",
-            about = "I make things that live on the web, in Discord, and inside Minecraft. If an idea is fun and codeable, I'll probably take a crack at it: websites, Discord bots, Minecraft clients, mods, and whatever else seems interesting at 2 AM.",
+            about = "I make things that live on the web, in Discord, and inside Minecraft. " +
+                "If an idea is fun and codeable, I'll probably take a crack at it: websites, " +
+                "Discord bots, Minecraft clients, mods, and whatever else seems interesting at 2 AM.",
             skills = listOf(
-                EqnityInfoResponse.Skill(
+                Skill(
                     title = "Websites",
-                    description = "Clean, animated, responsive sites — landing pages, portfolios, dashboards, storefronts. Built to look good and load fast.",
+                    description = "Clean, animated, responsive sites — landing pages, portfolios, dashboards, storefronts.",
                     technologies = "HTML · CSS · JavaScript"
                 ),
-                EqnityInfoResponse.Skill(
+                Skill(
                     title = "Discord Bots",
-                    description = "Bots with commands, moderation, economy, games, logs and API integrations. From small utilities to full bot setups.",
+                    description = "Bots with commands, moderation, economy, games, logs and API integrations.",
                     technologies = "Commands · Economy · Games · API"
                 ),
-                EqnityInfoResponse.Skill(
+                Skill(
                     title = "Minecraft Clients",
-                    description = "Custom clients and PvP utilities for modern Minecraft — built on Fabric and tuned for smooth, responsive gameplay.",
+                    description = "Custom clients and PvP utilities for modern Minecraft — built on Fabric.",
                     technologies = "Fabric · PvP · Utilities"
                 ),
-                EqnityInfoResponse.Skill(
+                Skill(
                     title = "Minecraft Mods",
-                    description = "Gameplay and utility mods with custom features and clean GUIs. Small quality-of-life tweaks or full-featured mods.",
+                    description = "Gameplay and utility mods with custom features and clean GUIs.",
                     technologies = "Gameplay · Utility · GUIs"
                 )
             ),
-            contact = EqnityInfoResponse.ContactInfo(
+            contact = ContactInfo(
                 github = "@ItzEqnity",
                 discord = "@eqnity"
             ),
-            links = EqnityInfoResponse.Links(
+            links = Links(
                 github = "https://github.com/ItzEqnity/ItzEqnity",
                 discord = "https://discord.gg/PeWyrBzRgp"
             )

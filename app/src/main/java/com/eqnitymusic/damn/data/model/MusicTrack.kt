@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.eqnitymusic.damn.data.db.Converters
-import kotlinx.serialization.Serializable
 import java.io.Serializable
 
 @Entity(tableName = "music_tracks")

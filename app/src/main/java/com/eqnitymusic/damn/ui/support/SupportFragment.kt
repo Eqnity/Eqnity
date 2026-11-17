@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -38,40 +40,47 @@ class SupportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
-        observeData()
-        setupClickListeners()
-    }
+        binding.rvSkills.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvSkills.adapter = skillAdapter
 
-    private fun setupRecyclerView() {
-        binding.rvSkills.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = skillAdapter
-        }
-    }
+        binding.btnRetrySupport.setOnClickListener { viewModel.loadInfo() }
 
-    private fun observeData() {
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.supportLoadingContainer.visibility = if (isLoading) View.VISIBLE else View.GONE
-            binding.supportErrorContainer.visibility = View.GONE
-        }
-
-        viewModel.error.observe(viewLifecycleOwner) { error ->
-            if (error != null && !viewModel.isLoading.value) {
-                binding.supportLoadingContainer.visibility = View.GONE
-                binding.supportErrorContainer.visibility = View.VISIBLE
-            }
-        }
-
-        viewModel.info.observe(viewLifecycleOwner) { info ->
-            if (info != null) {
-                populateInfo(info)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.isLoading.collect { loading ->
+                        binding.supportLoadingContainer.visibility =
+                            if (loading) View.VISIBLE else View.GONE
+                        binding.supportContent.visibility = if (loading) View.GONE else View.VISIBLE
+                        binding.supportErrorContainer.visibility =
+                            if (!loading && viewModel.error.value != null && viewModel.info.value == null) {
+                                View.VISIBLE
+                            } else {
+                                View.GONE
+                            }
+                    }
+                }
+                launch {
+                    viewModel.info.collect { info ->
+                        info ?: return@collect
+                        populateInfo(info)
+                    }
+                }
+                launch {
+                    viewModel.error.collect { error ->
+                        binding.supportErrorContainer.visibility =
+                            if (viewModel.info.value == null && !viewModel.isLoading.value && error != null) {
+                                View.VISIBLE
+                            } else {
+                                View.GONE
+                            }
+                    }
+                }
             }
         }
     }
 
     private fun populateInfo(info: com.eqnitymusic.damn.data.network.EqnityInfoResponse) {
-        // Load app logo from stormmc.top
         Glide.with(this)
             .load("https://stormmc.top/eqnity.png")
             .placeholder(R.drawable.ic_launcher_foreground)
@@ -80,31 +89,23 @@ class SupportFragment : Fragment() {
             .into(binding.supportAppLogo)
 
         binding.supportAppName.text = info.name
+        binding.supportAppTagline.text = info.tagline
         binding.supportAppVersion.text = getString(R.string.support_version, "6.7")
         binding.supportAboutContent.text = info.about
-
         skillAdapter.submitList(info.skills)
 
-        // Contact cards
         binding.contactGithubCard.setOnClickListener {
-            val url = info.links.github
-            if (url.isNotBlank()) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-            }
+            if (info.links.github.isNotBlank()) openUrl(info.links.github)
         }
-
         binding.contactDiscordCard.setOnClickListener {
-            val url = info.links.discord
-            if (url.isNotBlank()) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-            }
+            if (info.links.discord.isNotBlank()) openUrl(info.links.discord)
         }
+        binding.tvContactGithub.text = info.contact.github
+        binding.tvContactDiscord.text = info.contact.discord
     }
 
-    private fun setupClickListeners() {
-        binding.btnRetrySupport.setOnClickListener {
-            viewModel.loadInfo()
-        }
+    private fun openUrl(url: String) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
     override fun onDestroyView() {

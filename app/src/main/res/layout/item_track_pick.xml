@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_item_rounded"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/ivMusicArt"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/desc_album_art"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_music_note" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvMusicTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.EqnityMusic.TitleSmall"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/tvMusicArtist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.EqnityMusic.BodySmall"
+            android:textColor="@color/text_secondary" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvMusicDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textAppearance="@style/TextAppearance.EqnityMusic.BodySmall"
+        android:textColor="@color/text_tertiary" />
+
+    <CheckBox
+        android:id="@+id/cbTrackSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.EqnityMusic.CheckBox" />
+
+</LinearLayout>

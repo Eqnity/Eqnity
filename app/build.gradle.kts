@@ -5,7 +5,6 @@ plugins {
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     id("org.jetbrains.kotlin.plugin.serialization")
-    id("androidx.navigation.safeargs.kotlin")
     id("androidx.room")
 }
 
@@ -45,6 +44,7 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        buildConfig = true
     }
     namespace = "com.eqnitymusic.damn"
 
@@ -81,7 +81,6 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.8.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
 
     // Media playback
     implementation("androidx.media3:media3-exoplayer:1.3.1")
@@ -96,8 +95,8 @@ dependencies {
     // Hilt Dependency Injection - Use 2.50 for Kotlin 1.9.x compatibility (KSP)
     implementation("com.google.dagger:hilt-android:2.50")
     ksp("com.google.dagger:hilt-compiler:2.50")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
     implementation("androidx.hilt:hilt-work:1.2.0")
+    ksp("androidx.hilt:hilt-compiler:1.2.0")
 
     // Coroutines & Flow
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")

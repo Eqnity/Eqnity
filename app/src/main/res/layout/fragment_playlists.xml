@@ -1,114 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/surface_primary"
-    android:fitsSystemWindows="true">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/playlist_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:fitsSystemWindows="true"
-        app:elevation="0dp">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/playlist_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/surface_primary"
-            app:title="@string/tab_playlists"
-            app:titleTextAppearance="@style/TextAppearance.EqnityMusic.TitleLarge"
-            app:menu="@menu/playlist_toolbar_menu"
-            app:contentInsetStart="@dimen/margin_screen_edge"
-            app:contentInsetEnd="@dimen/margin_screen_edge" />
-    </com.google.android.material.appbar.AppBarLayout>
+    android:padding="16dp">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_playlists"
+        android:id="@+id/rvPlaylists"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:padding="@dimen/margin_screen_edge"
-        android:paddingBottom="@dimen/player_height_collapsed"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:paddingBottom="16dp"
+        android:visibility="gone" />
 
-    <!-- Empty State -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/playlist_empty_state"
+    <LinearLayout
+        android:id="@+id/playlistEmptyState"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:padding="@dimen/spacing_xxl"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ImageView
-            android:id="@+id/playlist_empty_icon"
-            android:layout_width="@dimen/avatar_size_xxl"
-            android:layout_height="@dimen/avatar_size_xxl"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:src="@drawable/ic_playlist"
-            android:tint="@color/text_tertiary"
-            android:contentDescription="@string/desc_playlist_cover"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="@dimen/spacing_xxl" />
+            android:tint="@color/text_tertiary" />
 
         <TextView
-            android:id="@+id/playlist_empty_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/playlist_empty"
-            android:textAppearance="@style/TextAppearance.EqnityMusic.TitleLarge"
-            android:textColor="@color/text_primary"
-            app:layout_constraintTop_toBottomOf="@id/playlist_empty_icon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/spacing_lg" />
-
-        <TextView
-            android:id="@+id/playlist_empty_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/playlist_empty_subtitle"
-            android:textAppearance="@style/TextAppearance.EqnityMusic.BodyMedium"
-            android:textColor="@color/text_secondary"
+            android:layout_marginTop="16dp"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/playlist_empty_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/spacing_xs" />
+            android:text="@string/playlist_empty"
+            android:textAppearance="@style/TextAppearance.EqnityMusic.TitleMedium"
+            android:textColor="@color/text_secondary" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_create_playlist"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="@string/playlist_empty_subtitle"
+            android:textAppearance="@style/TextAppearance.EqnityMusic.BodySmall"
+            android:textColor="@color/text_tertiary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEmptyStateCreate"
+            style="@style/Widget.EqnityMusic.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add"
-            android:contentDescription="@string/playlist_create_title"
-            app:layout_constraintTop_toBottomOf="@id/playlist_empty_subtitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/spacing_lg"
-            app:backgroundTint="@color/accent_primary"
-            app:tint="@color/text_on_accent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="16dp"
+            android:text="@string/playlist_create_title" />
 
-    <!-- Floating Action Button for creating playlist (when list not empty) -->
+    </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_create_playlist_main"
+        android:id="@+id/fabCreatePlaylist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/margin_screen_edge"
-        android:layout_marginBottom="@dimen/player_height_collapsed"
-        android:src="@drawable/ic_add"
+        android:layout_margin="16dp"
         android:contentDescription="@string/playlist_create_title"
-        android:visibility="gone"
+        android:src="@drawable/ic_add"
         app:backgroundTint="@color/accent_primary"
-        app:tint="@color/text_on_accent"
-        app:elevation="@dimen/card_elevation_raised" />
+        app:tint="@color/text_on_accent" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

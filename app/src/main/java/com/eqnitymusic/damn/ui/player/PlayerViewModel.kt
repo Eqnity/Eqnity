@@ -1,13 +1,15 @@
 package com.eqnitymusic.damn.ui.player
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.media3.common.Player
 import com.eqnitymusic.damn.data.model.MusicTrack
 import com.eqnitymusic.damn.data.repository.MusicRepository
 import com.eqnitymusic.damn.service.MediaPlaybackService
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,108 +18,48 @@ class PlayerViewModel @Inject constructor(
     private val musicRepository: MusicRepository
 ) : ViewModel() {
 
-    private val _currentTrack = MutableStateFlow<MusicTrack?>(null)
-    val currentTrack: StateFlow<MusicTrack?> = _currentTrack
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private val _isPlaying = MutableStateFlow(false)
-    val isPlaying: StateFlow<Boolean> = _isPlaying
+    fun service(): MediaPlaybackService? = MediaPlaybackService.getInstance()
 
-    private val _progress = MutableStateFlow(0f)
-    val progress: StateFlow<Float> = _progress
+    fun getCurrentTrack(): MusicTrack? = service()?.currentTrack
 
-    private val _currentPosition = MutableStateFlow(0L)
-    val currentPosition: StateFlow<Long> = _currentPosition
+    fun isPlaying(): Boolean = service()?.isPlaying() == true
 
-    private val _duration = MutableStateFlow(0L)
-    val duration: StateFlow<Long> = _duration
+    fun getPosition(): Long = service()?.getCurrentPosition() ?: 0L
 
-    private val _loopMode = MutableStateFlow(MediaPlaybackService.REPEAT_MODE_OFF)
-    val loopMode: StateFlow<Int> = _loopMode
+    fun getDuration(): Long = service()?.getDuration() ?: 0L
 
-    private val _shuffleMode = MutableStateFlow(MediaPlaybackService.SHUFFLE_MODE_OFF)
-    val shuffleMode: StateFlow<Int> = _shuffleMode
+    fun getPlaylist(): List<MusicTrack> = service()?.playlist ?: emptyList()
 
-    private val _playlist = MutableStateFlow<List<MusicTrack>>(emptyList())
-    val playlist: StateFlow<List<MusicTrack>> = _playlist
+    fun playPause() = service()?.playPause() ?: Unit
 
-    private val _currentIndex = MutableStateFlow(-1)
-    val currentIndex: StateFlow<Int> = _currentIndex
+    fun next() = service()?.next() ?: Unit
 
-    // MediaPlaybackService reference (set by MainActivity)
-    var playbackService: MediaPlaybackService? = null
-        set(value) {
-            field = value
-            if (value != null) {
-                syncWithService()
-            }
-        }
+    fun previous() = service()?.previous() ?: Unit
 
-    private fun syncWithService() {
-        playbackService?.let { service ->
-            _currentTrack.value = service.getCurrentTrack()
-            _isPlaying.value = service.isPlaying()
-            _progress.value = service.getProgress()
-            _currentPosition.value = service.getCurrentPosition()
-            _duration.value = service.getDuration()
-            _loopMode.value = service.getLoopMode()
-            _shuffleMode.value = service.getShuffleMode()
-            _playlist.value = service.getPlaylist()
-            _currentIndex.value = service.getCurrentIndex()
-        }
+    fun seekTo(positionMs: Long) = service()?.seekTo(positionMs) ?: Unit
+
+    fun getRepeatMode(): Int = service()?.getRepeatMode() ?: Player.REPEAT_MODE_OFF
+
+    fun setRepeatMode(mode: Int) {
+        service()?.setRepeatMode(mode)
     }
 
-    fun playPause() {
-        playbackService?.playPause()
-        _isPlaying.value = playbackService?.isPlaying() == true
+    fun isShuffleEnabled(): Boolean = service()?.isShuffleEnabled() == true
+
+    fun setShuffleEnabled(enabled: Boolean) {
+        service()?.setShuffleEnabled(enabled)
     }
 
-    fun playNext() {
-        playbackService?.playNext()
-    }
-
-    fun playPrevious() {
-        playbackService?.playPrevious()
-    }
-
-    fun seekTo(position: Long) {
-        playbackService?.seekTo(position)
-    }
-
-    fun setLoopMode(mode: Int) {
-        playbackService?.exoPlayer?.repeatMode = mode
-        _loopMode.value = mode
-    }
-
-    fun setShuffleMode(mode: Int) {
-        playbackService?.exoPlayer?.shuffleMode = mode
-        _shuffleMode.value = mode
-    }
-
-    fun setPlaylist(tracks: List<MusicTrack>, startIndex: Int = 0) {
-        _playlist.value = tracks
-        playbackService?.setPlaylist(tracks, startIndex)
-    }
-
-    // Called from MediaPlaybackService callbacks
-    fun onTrackChanged(track: MusicTrack?) {
-        _currentTrack.value = track
-        if (track != null) {
+    fun onTrackPlayed(track: MusicTrack) {
+        scope.launch {
             musicRepository.incrementPlayCount(track.id)
         }
     }
 
-    fun onPlaybackStateChanged(isPlaying: Boolean) {
-        _isPlaying.value = isPlaying
-    }
-
-    fun onProgressChanged(progress: Float, currentPos: Long, dur: Long) {
-        _progress.value = progress
-        _currentPosition.value = currentPos
-        _duration.value = dur
-    }
-
-    fun onPlaylistChanged(tracks: List<MusicTrack>, index: Int) {
-        _playlist.value = tracks
-        _currentIndex.value = index
+    override fun onCleared() {
+        super.onCleared()
+        scope.cancel()
     }
 }

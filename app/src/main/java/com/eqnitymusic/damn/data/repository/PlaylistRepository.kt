@@ -70,7 +70,7 @@ class PlaylistRepository @Inject constructor(
         dao.updatePlaylistStats(playlistId, trackCount, totalDuration, System.currentTimeMillis())
 
     suspend fun reorderPlaylistTracks(playlistId: Long, fromPosition: Int, toPosition: Int) {
-        val tracks = dao.getPlaylistTracksSync(playlistId)
+        val tracks = dao.getPlaylistTracksSync(playlistId).toMutableList()
         if (fromPosition < 0 || fromPosition >= tracks.size || toPosition < 0 || toPosition >= tracks.size) return
         
         val movedTrack = tracks.removeAt(fromPosition)

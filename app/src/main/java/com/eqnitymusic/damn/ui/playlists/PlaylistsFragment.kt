@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eqnitymusic.damn.R
 import com.eqnitymusic.damn.data.model.Playlist
 import com.eqnitymusic.damn.databinding.FragmentPlaylistsBinding
 import com.eqnitymusic.damn.ui.adapter.PlaylistAdapter
+import com.eqnitymusic.damn.ui.main.MainActivity
 import com.eqnitymusic.damn.ui.main.MainViewModel
 import com.eqnitymusic.damn.util.showSnackbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -24,14 +27,15 @@ class PlaylistsFragment : Fragment() {
 
     private var _binding: FragmentPlaylistsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by activityViewModels()
+
     private val playlistAdapter = PlaylistAdapter(
-        onPlaylistClick = { playlist -> openPlaylist(playlist) },
-        onPlaylistLongClick = { playlist, view -> showPlaylistOptions(playlist, view) },
+        onPlaylistClick = { playlist -> openDetail(playlist) },
+        onPlaylistLongClick = { playlist, view -> showMenu(playlist, view) },
         onPlayClick = { playlist -> playPlaylist(playlist) },
         onRename = { playlist -> showRenameDialog(playlist) },
-        onDelete = { playlist -> confirmDeletePlaylist(playlist) },
-        onAddSongs = { playlist -> showAddSongsDialog(playlist) }
+        onDelete = { playlist -> confirmDelete(playlist) },
+        onAddSongs = { playlist -> (requireActivity() as MainActivity).openAddSongs(playlist.id) }
     )
 
     override fun onCreateView(
@@ -45,125 +49,115 @@ class PlaylistsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
-        observeData()
-        setupClickListeners()
-    }
+        binding.rvPlaylists.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvPlaylists.adapter = playlistAdapter
 
-    private fun setupRecyclerView() {
-        binding.rvPlaylists.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = playlistAdapter
-        }
-    }
+        binding.fabCreatePlaylist.setOnClickListener { showCreateDialog() }
+        binding.btnEmptyStateCreate.setOnClickListener { showCreateDialog() }
 
-    private fun observeData() {
-        viewModel.playlists.observe(viewLifecycleOwner) { playlists ->
-            playlistAdapter.submitList(playlists)
-            binding.playlistEmptyState.visibility = if (playlists.isEmpty()) View.VISIBLE else View.GONE
-            binding.rvPlaylists.visibility = if (playlists.isEmpty()) View.GONE else View.VISIBLE
-            binding.fabCreatePlaylistMain.visibility = if (playlists.isEmpty()) View.GONE else View.VISIBLE
-        }
-    }
-
-    private fun setupClickListeners() {
-        binding.fabCreatePlaylist.setOnClickListener { showCreatePlaylistDialog() }
-        binding.fabCreatePlaylistMain.setOnClickListener { showCreatePlaylistDialog() }
-    }
-
-    private fun showCreatePlaylistDialog() {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_create_playlist, null)
-        val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setView(dialogView)
-            .create()
-
-        dialogView.btnDialogCreate.setOnClickListener {
-            val name = dialogView.etPlaylistName.text.toString().trim()
-            if (name.isNotBlank()) {
-                dialog.dismiss()
-                createPlaylist(name)
-            } else {
-                dialogView.tilPlaylistName.error = "Playlist name cannot be empty"
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.playlists.collect { playlists ->
+                    playlistAdapter.submitList(playlists)
+                    binding.playlistEmptyState.visibility =
+                        if (playlists.isEmpty()) View.VISIBLE else View.GONE
+                    binding.rvPlaylists.visibility =
+                        if (playlists.isEmpty()) View.GONE else View.VISIBLE
+                }
             }
         }
-
-        dialogView.btnDialogCancel.setOnClickListener { dialog.dismiss() }
-        dialog.show()
     }
 
-    private fun createPlaylist(name: String) {
-        lifecycleScope.launch {
-            val playlistId = viewModel.createPlaylist(name)
-            showSnackbar(binding.root, getString(R.string.success_saved))
+    private fun showMenu(playlist: Playlist, view: View) {
+        PopupMenu(requireContext(), view).apply {
+            menuInflater.inflate(R.menu.playlist_item_menu, menu)
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.menu_play -> playPlaylist(playlist)
+                    R.id.menu_add_songs ->
+                        (requireActivity() as MainActivity).openAddSongs(playlist.id)
+                    R.id.menu_rename -> showRenameDialog(playlist)
+                    R.id.menu_delete -> confirmDelete(playlist)
+                }
+                true
+            }
+            show()
         }
     }
 
-    private fun openPlaylist(playlist: Playlist) {
-        val navController = findNavController()
-        navController.navigate(PlaylistsFragmentDirections.actionPlaylistsToPlaylistDetail(playlist.id))
+    private fun openDetail(playlist: Playlist) {
+        (requireActivity() as MainActivity).openPlaylistDetail(playlist.id)
     }
 
     private fun playPlaylist(playlist: Playlist) {
         lifecycleScope.launch {
-            val tracks = viewModel.getPlaylistMusicTracks(playlist.id).firstOrNull() ?: emptyList()
-            if (tracks.isNotEmpty()) {
-                val activity = requireActivity() as MainActivity
-                activity.playTracks(tracks, 0)
+            val tracks = viewModel.getPlaylistMusicTracks(playlist.id)
+            if (tracks.isEmpty()) {
+                showSnackbar(binding.root, getString(R.string.playlist_songs_empty))
+                return@launch
+            }
+            (requireActivity() as MainActivity).playTracks(tracks, 0)
+        }
+    }
+
+    private fun showCreateDialog() {
+        showNameDialog(getString(R.string.playlist_create_title), "") { name ->
+            lifecycleScope.launch {
+                viewModel.createPlaylist(name)
+                showSnackbar(binding.root, getString(R.string.success_saved))
             }
         }
     }
 
-    private fun showPlaylistOptions(playlist: Playlist, view: View) {
-        // Handled by adapter's popup menu
+    private fun showRenameDialog(playlist: Playlist) {
+        showNameDialog(getString(R.string.playlist_rename), playlist.name) { name ->
+            lifecycleScope.launch {
+                viewModel.renamePlaylist(playlist, name)
+                showSnackbar(binding.root, getString(R.string.success_saved))
+            }
+        }
     }
 
-    private fun showRenameDialog(playlist: Playlist) {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_create_playlist, null)
-        dialogView.tvDialogTitle.text = getString(R.string.playlist_rename)
-        dialogView.etPlaylistName.setText(playlist.name)
-        
+    private fun showNameDialog(title: String, initial: String, onConfirm: (String) -> Unit) {
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_create_playlist, null)
+        val til = dialogView.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilPlaylistName)
+        val input = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etPlaylistName)
+        dialogView.findViewById<android.widget.TextView>(R.id.tvDialogTitle).text = title
+        input.setText(initial)
+        input.setSelection(initial.length)
+
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(dialogView)
             .create()
 
-        dialogView.btnDialogCreate.text = getString(R.string.playlist_rename)
-        dialogView.btnDialogCreate.setOnClickListener {
-            val name = dialogView.etPlaylistName.text.toString().trim()
-            if (name.isNotBlank()) {
-                dialog.dismiss()
-                renamePlaylist(playlist, name)
-            } else {
-                dialogView.tilPlaylistName.error = "Playlist name cannot be empty"
+        dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnDialogCreate)
+            .setOnClickListener {
+                val name = input.text.toString().trim()
+                if (name.isBlank()) {
+                    til.error = getString(R.string.download_invalid_url)
+                } else {
+                    dialog.dismiss()
+                    onConfirm(name)
+                }
             }
-        }
-
-        dialogView.btnDialogCancel.setOnClickListener { dialog.dismiss() }
+        dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnDialogCancel)
+            .setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
 
-    private fun renamePlaylist(playlist: Playlist, newName: String) {
-        lifecycleScope.launch {
-            val updated = playlist.copy(name = newName, dateModified = System.currentTimeMillis())
-            viewModel.updatePlaylist(updated)
-            showSnackbar(binding.root, getString(R.string.success_saved))
-        }
-    }
-
-    private fun confirmDeletePlaylist(playlist: Playlist) {
+    private fun confirmDelete(playlist: Playlist) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.playlist_delete_confirm)
-            .setMessage(getString(R.string.playlist_delete_message, playlist.name))
+            .setTitle(getString(R.string.playlist_delete_confirm, playlist.getDisplayName()))
+            .setMessage(R.string.playlist_delete_message)
             .setPositiveButton(R.string.playlist_delete) { _, _ ->
-                viewModel.deletePlaylist(playlist)
-                showSnackbar(binding.root, getString(R.string.success_deleted))
+                lifecycleScope.launch {
+                    viewModel.deletePlaylist(playlist)
+                    showSnackbar(binding.root, getString(R.string.success_deleted))
+                }
             }
             .setNegativeButton(R.string.download_dialog_cancel, null)
             .show()
-    }
-
-    private fun showAddSongsDialog(playlist: Playlist) {
-        val navController = findNavController()
-        navController.navigate(PlaylistsFragmentDirections.actionPlaylistsToAddSongs(playlist.id))
     }
 
     override fun onDestroyView() {

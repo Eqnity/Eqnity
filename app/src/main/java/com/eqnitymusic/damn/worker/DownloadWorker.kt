@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.eqnitymusic.damn.data.model.Download
@@ -17,12 +18,14 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.BufferedSink
-import okio.Okio
+import okio.buffer
+import okio.sink
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import javax.inject.Inject
 
+@HiltWorker
 class DownloadWorker @Inject constructor(
     context: Context,
     params: WorkerParameters,
@@ -116,7 +119,7 @@ class DownloadWorker @Inject constructor(
             val fileName = generateFileName(url)
             val file = createMusicFile(fileName)
             
-            val sink = Okio.buffer(Okio.sink(file))
+            val sink = file.sink().buffer()
             val inputStream = body as InputStream
             val buffer = ByteArray(8192)
             var bytesRead: Int

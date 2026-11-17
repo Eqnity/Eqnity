@@ -1,168 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_coordinator"
+    android:id="@+id/rootContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/surface_primary"
     android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:fitsSystemWindows="true"
-        app:elevation="0dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="@color/surface_primary"
-            app:title="@string/app_name"
-            app:titleTextAppearance="@style/TextAppearance.EqnityMusic.TitleLarge"
-            app:navigationIcon="@drawable/ic_menu"
-            app:menu="@menu/main_toolbar_menu"
-            app:contentInsetStart="16dp"
-            app:contentInsetEnd="16dp" />
-    </com.google.android.material.appbar.AppBarLayout>
+            app:elevation="0dp">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:paddingBottom="@dimen/bottom_nav_height" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_nav_height"
-        android:layout_gravity="bottom"
-        android:background="@color/tab_background"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled"
-        app:itemIconSize="@dimen/bottom_nav_icon_size"
-        app:itemTextAppearanceActive="@style/TextAppearance.EqnityMusic.LabelSmall"
-        app:itemTextAppearanceInactive="@style/TextAppearance.EqnityMusic.LabelSmall"
-        app:itemIconTint="@color/bottom_nav_item_tint"
-        app:itemTextColor="@color/bottom_nav_item_tint"
-        app:itemRippleColor="@color/accent_primary_container" />
+                <TextView
+                    android:id="@+id/toolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.EqnityMusic.TitleLarge"
+                    android:textColor="@color/text_primary" />
 
-    <!-- Mini Player - Collapsed -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mini_player"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/player_height_collapsed"
-        android:layout_gravity="bottom"
-        android:layout_margin="@dimen/margin_screen_edge"
-        android:layout_marginBottom="@dimen/bottom_nav_height"
-        android:visibility="gone"
-        app:cardCornerRadius="@dimen/card_corner_radius_small"
-        app:cardElevation="@dimen/card_elevation_raised"
-        app:cardBackgroundColor="@color/surface_secondary"
-        app:strokeColor="@color/outline_variant"
-        app:strokeWidth="1dp">
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
+            android:id="@+id/nav_host_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/spacing_md">
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/miniPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/bg_mini_player"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:visibility="gone">
 
             <ImageView
-                android:id="@+id/mini_player_art"
-                android:layout_width="@dimen/player_art_size"
-                android:layout_height="@dimen/player_art_size"
-                android:scaleType="centerCrop"
-                android:contentDescription="@string/desc_album_art"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            <View
-                android:id="@+id/mini_player_gradient_overlay"
-                android:layout_width="@dimen/player_art_size"
-                android:layout_height="@dimen/player_art_size"
-                android:background="@drawable/gradient_overlay_album_art"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@id/mini_player_art"
-                app:layout_constraintTop_toTopOf="@id/mini_player_art"
-                app:layout_constraintBottom_toBottomOf="@id/mini_player_art"
-                app:layout_constraintEnd_toEndOf="@id/mini_player_art" />
-
-            <TextView
-                android:id="@+id/mini_player_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textAppearance="@style/TextAppearance.EqnityMusic.BodyMedium"
-                android:textColor="@color/text_primary"
-                app:layout_constraintStart_toEndOf="@id/mini_player_art"
-                app:layout_constraintTop_toTopOf="@id/mini_player_art"
-                app:layout_constraintEnd_toStartOf="@id/mini_player_play_pause"
-                android:layout_marginStart="@dimen/spacing_md"
-                android:layout_marginEnd="@dimen/spacing_md" />
-
-            <TextView
-                android:id="@+id/mini_player_artist"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textAppearance="@style/TextAppearance.EqnityMusic.BodySmall"
-                android:textColor="@color/text_secondary"
-                app:layout_constraintStart_toStartOf="@id/mini_player_title"
-                app:layout_constraintTop_toBottomOf="@id/mini_player_title"
-                app:layout_constraintEnd_toEndOf="@id/mini_player_title"
-                android:layout_marginTop="@dimen/spacing_xxs" />
-
-            <ImageButton
-                android:id="@+id/mini_player_play_pause"
-                android:layout_width="@dimen/player_control_button_size"
-                android:layout_height="@dimen/player_control_button_size"
-                android:background="@drawable/btn_player_control_background"
-                android:src="@drawable/ic_play"
-                android:contentDescription="@string/desc_play_pause"
-                android:tint="@color/text_primary"
-                app:layout_constraintEnd_toStartOf="@id/mini_player_next"
-                app:layout_constraintTop_toTopOf="@id/mini_player_art"
-                app:layout_constraintBottom_toBottomOf="@id/mini_player_art"
-                android:layout_marginEnd="@dimen/spacing_sm" />
-
-            <ImageButton
-                android:id="@+id/mini_player_next"
-                android:layout_width="@dimen/player_control_button_size"
-                android:layout_height="@dimen/player_control_button_size"
-                android:background="@drawable/btn_player_control_background"
-                android:src="@drawable/ic_skip_next"
-                android:contentDescription="@string/desc_next"
-                android:tint="@color/text_primary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/mini_player_art"
-                app:layout_constraintBottom_toBottomOf="@id/mini_player_art" />
-
-            <ImageView
-                android:id="@+id/mini_player_drag_handle"
-                android:layout_width="@dimen/player_handle_width"
-                android:layout_height="@dimen/player_handle_height"
+                android:id="@+id/miniPlayerDragHandle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/player_drag_handle"
                 android:src="@drawable/ic_drag_handle"
-                android:contentDescription="@string/desc_drag_handle"
-                android:tint="@color/player_handle"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/spacing_xs"
-                android:layout_marginEnd="@dimen/spacing_md" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                android:tint="@color/text_tertiary" />
 
-    <!-- Full Screen Player Container (initially hidden) -->
+            <ImageView
+                android:id="@+id/miniPlayerArt"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/desc_album_art"
+                android:src="@drawable/ic_music_note" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/miniPlayerTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.EqnityMusic.TitleSmall"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:id="@+id/miniPlayerArtist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.EqnityMusic.BodySmall"
+                    android:textColor="@color/text_secondary" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/miniPlayerPlayPause"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/desc_play_pause"
+                android:src="@drawable/ic_play"
+                android:tint="@color/text_primary" />
+
+            <ImageButton
+                android:id="@+id/miniPlayerNext"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/desc_next"
+                android:src="@drawable/ic_skip_next"
+                android:tint="@color/text_primary" />
+
+        </LinearLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            style="@style/Widget.EqnityMusic.BottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom_nav_menu" />
+
+    </LinearLayout>
+
     <FrameLayout
-        android:id="@+id/full_player_container"
+        android:id="@+id/fullPlayerContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@color/player_background" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:background="@color/player_background"
+        android:visibility="gone" />
+
+</FrameLayout>

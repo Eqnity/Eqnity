@@ -1,87 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dialog_padding">
+    android:orientation="vertical"
+    android:padding="24dp">
 
     <TextView
-        android:id="@+id/tv_dialog_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/download_dialog_title"
-        android:textAppearance="@style/TextAppearance.EqnityMusic.TitleLarge"
+        android:text="Download from YouTube"
         android:textColor="@color/text_primary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_dialog_message"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/download_dialog_message"
-        android:textAppearance="@style/TextAppearance.EqnityMusic.BodyMedium"
-        android:textColor="@color/text_secondary"
-        app:layout_constraintTop_toBottomOf="@id/tv_dialog_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/spacing_md" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_download_url"
-        android:layout_width="0dp"
+        android:id="@+id/tilDownloadUrl"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/download_dialog_input_hint"
-        app:layout_constraintTop_toBottomOf="@id/tv_dialog_message"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/spacing_lg"
-        style="@style/Widget.EqnityMusic.TextInputLayout">
+        android:layout_marginTop="16dp"
+        android:hint="YouTube URL"
+        app:boxBackgroundColor="@color/surface_secondary_elevated"
+        app:boxStrokeColor="@color/accent_primary"
+        app:hintTextColor="@color/accent_primary"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_download_url"
+            android:id="@+id/etDownloadUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textUri"
-            android:imeOptions="actionDone"
-            android:textAppearance="@style/TextAppearance.EqnityMusic.BodyLarge"
+            android:maxLines="1"
             android:textColor="@color/text_primary" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/til_download_url"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/spacing_lg">
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_dialog_cancel"
+            android:id="@+id/btnDialogCancel"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
-            android:text="@string/download_dialog_cancel"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_dialog_download"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/spacing_sm"
-            style="@style/Widget.EqnityMusic.Button.Outlined" />
+            android:text="Cancel"
+            android:textColor="@color/text_secondary" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_dialog_download"
+            android:id="@+id/btnDialogDownload"
             android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
-            android:text="@string/download_dialog_download"
-            android:icon="@drawable/ic_download"
-            app:iconGravity="start"
-            app:iconPadding="@dimen/spacing_xs"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btn_dialog_cancel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/spacing_sm"
-            style="@style/Widget.EqnityMusic.Button" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:backgroundTint="@color/accent_primary"
+            android:text="Download"
+            android:textColor="@color/text_primary" />
+
+    </LinearLayout>
+
+</LinearLayout>

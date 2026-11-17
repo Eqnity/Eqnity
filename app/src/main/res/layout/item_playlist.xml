@@ -1,96 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/spacing_sm"
-    app:cardCornerRadius="@dimen/card_corner_radius_small"
-    app:cardBackgroundColor="@color/surface_secondary"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/outline_variant"
-    app:strokeWidth="1dp"
-    style="@style/Widget.EqnityMusic.PlaylistItem">
+    android:background="@drawable/bg_item_rounded"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/ivPlaylistCover"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:contentDescription="@string/desc_playlist_cover"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_playlist" />
+
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_md">
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <!-- Playlist Cover -->
-        <ImageView
-            android:id="@+id/iv_playlist_cover"
-            android:layout_width="@dimen/album_art_size_large"
-            android:layout_height="@dimen/album_art_size_large"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/desc_playlist_cover"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <!-- Playlist Info -->
         <TextView
-            android:id="@+id/tv_playlist_name"
-            android:layout_width="0dp"
+            android:id="@+id/tvPlaylistName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.EqnityMusic.TitleMedium"
-            android:textColor="@color/text_primary"
-            app:layout_constraintStart_toEndOf="@id/iv_playlist_cover"
-            app:layout_constraintTop_toTopOf="@id/iv_playlist_cover"
-            app:layout_constraintEnd_toStartOf="@id/btn_playlist_more"
-            android:layout_marginStart="@dimen/spacing_md"
-            android:layout_marginEnd="@dimen/spacing_sm" />
-
-        <TextView
-            android:id="@+id/tv_playlist_song_count"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:maxLines="1"
-            android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.EqnityMusic.BodySmall"
-            android:textColor="@color/text_secondary"
-            app:layout_constraintStart_toStartOf="@id/tv_playlist_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_playlist_name"
-            app:layout_constraintEnd_toEndOf="@id/tv_playlist_name"
-            android:layout_marginTop="@dimen/spacing_xxs" />
+            android:textAppearance="@style/TextAppearance.EqnityMusic.TitleSmall"
+            android:textColor="@color/text_primary" />
 
         <TextView
-            android:id="@+id/tv_playlist_duration"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvPlaylistSongCount"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.EqnityMusic.BodySmall"
-            android:textColor="@color/text_tertiary"
-            app:layout_constraintStart_toStartOf="@id/tv_playlist_name"
-            app:layout_constraintBottom_toBottomOf="@id/iv_playlist_cover" />
+            android:textColor="@color/text_secondary" />
 
-        <!-- More Options -->
-        <ImageButton
-            android:id="@+id/btn_playlist_more"
-            android:layout_width="@dimen/icon_size_lg"
-            android:layout_height="@dimen/icon_size_lg"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_more_vert"
-            android:contentDescription="@string/desc_more_options"
-            android:tint="@color/text_tertiary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_playlist_cover"
-            app:layout_constraintBottom_toBottomOf="@id/iv_playlist_cover" />
+    </LinearLayout>
 
-        <!-- Play Button Overlay -->
-        <ImageButton
-            android:id="@+id/btn_playlist_play"
-            android:layout_width="@dimen/icon_size_lg"
-            android:layout_height="@dimen/icon_size_lg"
-            android:background="@drawable/btn_player_control_background"
-            android:src="@drawable/ic_play"
-            android:contentDescription="@string/menu_play"
-            android:tint="@color/text_primary"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@id/iv_playlist_cover"
-            app:layout_constraintEnd_toEndOf="@id/iv_playlist_cover"
-            app:layout_constraintTop_toTopOf="@id/iv_playlist_cover"
-            app:layout_constraintBottom_toBottomOf="@id/iv_playlist_cover" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+    <ImageButton
+        android:id="@+id/btnPlaylistMore"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/desc_more_options"
+        android:src="@drawable/ic_more_vert"
+        android:tint="@color/text_secondary" />
+
+</LinearLayout>
